@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Ensure the folder exists
+mkdir -p ~/Pictures/Screenshots
+
+# Create timestamped filename
+FILE=~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+
+# Take screenshot (full screen)
+maim "$FILE"
+
+# Copy to clipboard
+xclip -selection clipboard -t image/png -i "$FILE"
+
+# Notify via dunst with the screenshot as icon
+dunstify "Screenshot Taken!" -i "$FILE" "Saved to $FILE"

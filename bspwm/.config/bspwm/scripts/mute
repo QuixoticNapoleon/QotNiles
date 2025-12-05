@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Toggle mute
+pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Get mute status
+MUTE=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+
+if [ "$MUTE" = "yes" ]; then
+    dunstify "  Volume: Muted" -r 2593 -t 1000
+else
+    VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "\d+%" | head -1)
+    dunstify "  Volume: $VOLUME" -h int:value:${VOLUME%\%} -r 2593 -t 1000
+fi
