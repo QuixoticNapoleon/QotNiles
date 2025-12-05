@@ -1,0 +1,122 @@
+-- local home = os.getenv('HOME')
+-- local db = require('dashboard')
+-- db.default_banner =
+-- {
+--     '',
+--     '',
+--     '',
+--     '██████╗ ██╗  ██╗      ███╗   ██╗██╗   ██╗██╗███╗   ███╗',
+--     '██╔══██╗██║  ██║      ████╗  ██║██║   ██║██║████╗ ████║',
+--     '██████╔╝███████║█████╗██╔██╗ ██║██║   ██║██║██╔████╔██║',
+--     '██╔══██╗██╔══██║╚════╝██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║',
+--     '██████╔╝██║  ██║      ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║',
+--     '╚═════╝ ╚═╝  ╚═╝      ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═ ',
+--     '',
+--     ' [TIP: To exit Vim, use a sledgehammer.] ',
+--     '',
+-- 
+-- 
+-- }
+-- db.preview_file_height = 11
+-- db.preview_file_width = 70
+-- db.custom_center =
+-- {
+--     { icon = '  ',
+--         desc = 'Recently Opened Files                   ',
+--         action = 'Telescope oldfiles',
+--         shortcut = 'SPC f h' },
+--     { icon = '  ',
+--         desc = 'New File                                ',
+--         action = ':tabnew',
+--         shortcut = 'SPC f n' },
+--     { icon = '  ',
+--         desc = 'Find File                               ',
+--         action = 'Telescope find_files find_command=rg,--hidden,--files',
+--         shortcut = 'SPC f f' },
+--     { icon = '  ',
+--         desc = 'File Browser                            ',
+--         action = 'Telescope file_browser',
+--         shortcut = 'SPC f b' },
+--     { icon = '  ',
+--         desc = 'Find Word                               ',
+--         action = 'Telescope live_grep',
+--         shortcut = 'SPC f w' },
+--     { icon = '  ',
+--         desc = 'View Harpoon Marks                      ',
+--         action = 'Telescope harpoon marks',
+--         shortcut = 'SPC f r' },
+--     { icon = '⚒  ',
+--         desc = 'Use A Sledgehammer                      ',
+--         action = 'qa',
+--         shortcut = 'SPC w q' },
+-- }
+
+local db = require("dashboard")
+db.setup {
+  theme = "hyper",
+  config = {
+    header = {
+      " ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
+      " ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
+      " ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
+      " ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██╔╝██╔╝██║",
+      " ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
+      " ╚═╝  ╚═══╝╚══════╝╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
+      "                                                  "
+    },
+    week_header = {
+      enable = false  -- or true if you want date/time header
+    },
+    shortcut = {
+      {
+        icon = " ",
+        desc = "Find File",
+        key  = "f",
+        action = "Telescope find_files"
+      },
+      {
+        icon = " ",
+        desc = "Recent Files",
+        key  = "r",
+        action = "Telescope oldfiles"
+      },
+      {
+        icon = " ",
+        desc = "New File",
+        key  = "n",
+        action = "enew"
+      },
+      {
+        icon = "󰓢 ",
+        desc = "Open Config",
+        key  = "c",
+        action = "edit ~/.config/nvim/init.lua"
+      },
+      {
+        icon = "󰗼 ",
+        desc = "Quit",
+        key  = "q",
+        action = "qa"
+      },
+    },
+    packages = {
+      enable = true  -- set to true if you want plugin count display
+    },
+    project = {
+      enable = false,  -- set true if you want project list
+      limit  = 8,
+      icon   = " ",
+      label  = "Projects",
+      action = "Telescope find_files cwd="
+    },
+    mru = {
+      enable = true,  -- set true if you want MRU files
+      limit  = 10,
+      icon   = " ",
+      label  = "Recent",
+      cwd_only = false
+    },
+    footer = { "Have a productive day!" },
+  },
+}
+
