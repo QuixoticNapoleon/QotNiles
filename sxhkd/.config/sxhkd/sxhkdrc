@@ -1,0 +1,231 @@
+# ██████╗░██╗░░██╗░░░░░░░██████╗██╗░░██╗██╗░░██╗██╗░░██╗██████╗░ #
+# ██╔══██╗██║░░██║░░░░░░██╔════╝╚██╗██╔╝██║░░██║██║░██╔╝██╔══██╗ #
+# ██████╦╝███████║█████╗╚█████╗░░╚███╔╝░███████║█████═╝░██║░░██║ #
+# ██╔══██╗██╔══██║╚════╝░╚═══██╗░██╔██╗░██╔══██║██╔═██╗░██║░░██║ #
+# ██████╦╝██║░░██║░░░░░░██████╔╝██╔╝╚██╗██║░░██║██║░╚██╗██████╔╝ #
+# ╚═════╝░╚═╝░░╚═╝░░░░░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░ #
+#
+#█▄▄ █░█ ▀ █▀   █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄ █ █▄░█ █▀▀ █▀   █▀▀ █▀█ █▀█   █▄▄ █▀ █▀█ █░█░█ █▀▄▀█#
+#█▄█ █▀█ ░ ▄█   █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀ █ █░▀█ █▄█ ▄█   █▀░ █▄█ █▀▄   █▄█ ▄█ █▀▀ ▀▄▀▄▀ █░▀░█#
+
+
+# Move Focus
+
+super + h
+    bspc node -f west
+super + j
+    bspc node -f south
+super + k
+    bspc node -f north
+super + l
+    bspc node -f east
+
+
+# Move Window
+
+super + shift + h
+    bspc node -s west
+super + shift + j
+    bspc node -s south
+super + shift + k
+    bspc node -s north
+super + shift + l
+    bspc node -s east
+
+
+# Presel Window
+
+ctrl + super + h
+    bspc node --presel-dir \~west
+ctrl + super + j
+    bspc node --presel-dir \~south
+ctrl + super + k
+    bspc node --presel-dir \~north
+ctrl + super + l
+    bspc node --presel-dir \~east
+
+ctrl + super + n
+    bspc node --presel-ratio 0.75
+ctrl + super + t
+    bspc node --presel-ratio 0.25
+
+
+
+# Switch Workspaces
+
+super + ampersand
+    bspc desktop -f "一"
+
+super + bracketleft
+    bspc desktop -f "二"
+
+super + braceleft
+    bspc desktop -f "三"
+
+super + braceright
+    bspc desktop -f "四"
+
+super + parenleft
+    bspc desktop -f "五"
+
+super + equal
+    bspc desktop -f "六"
+
+super + asterisk
+    bspc desktop -f "七"
+
+super + parenright
+    bspc desktop -f "八"
+
+super + plus
+    bspc desktop -f "九"
+
+super + bracketright
+    bspc desktop -f "十"
+
+super + exclam
+    bspc desktop -f "󱉼"
+
+
+# Move to Different Workspaces
+
+super + shift + ampersand
+    bspc node -d "一"
+
+super + shift + bracketleft
+    bspc node -d "二"
+
+super + shift + braceleft
+    bspc node -d "三"
+
+super + shift + braceright
+    bspc node -d "四"
+
+super + shift + parenleft
+    bspc node -d "五"
+
+super + shift + equal
+    bspc node -d "六"
+
+super + shift + asterisk
+    bspc node -d "七"
+
+super + shift + parenright
+    bspc node -d "八"
+
+super + shift + plus
+    bspc node -d "九"
+
+super + shift + bracketright
+    bspc node -d "十"
+
+super + shift + exclam
+    bspc node -d "󱉼"
+
+# BSPWM Functions
+
+super + m
+    bspc desktop -l next # Toggle Monocle
+
+super + f
+	~/Scripts/fullscreen
+    # bspc node -t \~fullscreen # Toggle Fullscreen
+
+super + c
+    bspc node -c # Delete Window
+
+super + shift + c
+    bspc wm -r && pkill -USR1 -x sxhkd # Restarts BSPWM & sxhkd
+
+ctrl + super + m
+    bspc node -s last
+
+
+# Other Functions
+
+super + slash
+    ~/Scripts/blur-lock
+
+
+# Applications
+
+super + Return 
+    kitty     	# Teriminal Emulator
+
+super + alt + Return
+    kitty --class floating # Floating Terminal
+
+super + w 
+    zen-browser	# Browser
+
+super + d 	
+    rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi # Application Launcher
+
+super + v
+	bash ~/Scripts/clipboard
+
+# super + v
+#     rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -config ~/.config/rofi/rofidmenu.rasi -show-icons
+
+super + e
+    emacs
+
+super + s
+	~/Scripts/screenshot
+
+super + shift + s
+	~/Scripts/snip
+
+
+# Tools
+#
+
+# Audio
+
+# XF86AudioRaiseVolume
+#     pactl set-sink-volume @DEFAULT_SINK@ +5%
+# 
+# XF86AudioLowerVolume
+#     pactl set-sink-volume @DEFAULT_SINK@ -5%
+# 
+# XF86AudioMute
+#    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+
+# Increase volume
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +5% && \
+    VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+%' | head -1) && \
+    dunstify "  Volume: $VOLUME" -h int:value:"${VOLUME%\%}" -r 2593 -t 1000
+
+# Decrease volume
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -5% && \
+    VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+%' | head -1) && \
+    dunstify "  Volume: $VOLUME" -h int:value:"${VOLUME%\%}" -r 2593 -t 1000
+
+# Mute/unmute
+# XF86AudioMute
+#     pactl set-sink-mute @DEFAULT_SINK@ toggle; \
+#     MUTE=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}'); \
+#     if [ "$MUTE" = "yes" ]; then \
+#         dunstify "Volume: Muted" -r 2593 -t 1000; \
+#     else \
+#         VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po "\d+%" | head -1); \
+#         dunstify "Volume: $VOLUME" -h int:value:${VOLUME%\%} -r 2593 -t 1000; \
+#     fi
+XF86AudioMute
+    ~/Scripts/mute
+
+
+# # Increase brightness
+# XF86MonBrightnessUp
+#     BRIGHT=$(xbacklight -inc 10) && \
+#     dunstify "Brightness: ${BRIGHT%.*}%" -h int:value:"${BRIGHT%.*}" -r 2594 -t 1000
+# 
+# # Decrease brightness
+# XF86MonBrightnessDown
+#     BRIGHT=$(xbacklight -dec 10) && \
+#     dunstify "Brightness: ${BRIGHT%.*}%" -h int:value:"${BRIGHT%.*}" -r 2594 -t 1000
+
+

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Get the focused window
+FOCUSED=$(bspc query -N -n focused)
+if [ -z "$FOCUSED" ]; then
+    exit 1
+fi
+
+# Check if the window is already on the temporary fullscreen desktop
+TEMP_DESKTOP="fullscreen-$$"
+CURRENT_DESKTOP=$(bspc query -D -d focused --names)
+
+# Toggle behavior
+if bspc query -D -d "$TEMP_DESKTOP" &>/dev/null; then
+    # The temporary desktop exists → move back to original desktop
+    ORIGINAL=$(bspc query -D -d | grep -v "$TEMP_DESKTOP" | head -n1)
+    bspc node "$FOCUSED" -d "$ORIGINAL"
+    bspc desktop "$ORIGINAL" -f
+    bspc desktop "$TEMP_DESKTOP" --remove
+else
+    # Create temporary desktop and move the window there
+    bspc monitor -d "$TEMP_DESKTOP"
+    bspc node "$FOCUSED" -d "$TEMP_DESKTOP"
+    bspc desktop "$TEMP_DESKTOP" -f
+    bspc node "$FOCUSED" -t fullscreen
+fi

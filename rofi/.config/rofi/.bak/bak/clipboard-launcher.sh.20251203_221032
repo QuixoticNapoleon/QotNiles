@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+#==============================================================================
+# Safe Clipboard Launcher - Crash-Free Version
+#==============================================================================
+# FIXES:
+# - Skips images with missing files (prevents crashes)
+# - Only shows images that actually exist
+# - Safer error handling
+# - No thumbnails for now (simpler, more stable)
+#==============================================================================
+
+# Directory where greenclip stores image files
+IMGDIR="/tmp/greenclip"
+
+#------------------------------------------------------------------------------
+# clipboard_mode() - Handles rofi script mode SAFELY
+#------------------------------------------------------------------------------
+clipboard_mode() {
+    if [ "$ROFI_RETV" = "0" ]; then
+        #----------------------------------------------------------------------
+        # Show clipboard entries - SKIP BROKEN IMAGES
+        #----------------------------------------------------------------------
+        greenclip print | while IFS= read -r line; do
+
+            # Check if this is an image entry
+            if [[ "$line" =~ ^image/png ]]; then
+                # Extract hash (handles both "image/png HASH" and "image/png Zen HASH")
+                hash=$(echo "$line" | awk '{print $NF}')
+                imgfile="$IMGDIR/${hash}.png"
+
+                # IMPORTANT: Only show image if file actually exists
+                # This prevents crashes from missing files
+                if [ -f "$imgfile" ]; then
+                    # Show image entry (no thumbnail to keep it simple and stable)
+                    # Store original line in info field
+                    printf '[IMAGE] %s\0info\x1f%s\n' "$(basename "$imgfile")" "$line"
+                fi
+                # If file doesn't exist: SKIP IT (don't show at all)
+                # This prevents clicking on broken images
+
+            else
+                # Regular text entry - show as-is
+                printf '%s\0info\x1f%s\n' "$line" "$line"
+            fi
+        done
+
+    else
+        #----------------------------------------------------------------------
+        # Handle selection SAFELY
+        #----------------------------------------------------------------------
+        selection="$ROFI_INFO"
+
+        # Safety check: exit if nothing selected
+        [ -z "$selection" ] && exit 0
+
+        if [[ "$selection" =~ ^image/png ]]; then
+            # Image selected - copy with extra safety checks
+            hash=$(echo "$selection" | awk '{print $NF}')
+            imgfile="$IMGDIR/${hash}.png"
+
+            # Double-check file exists and is readable
+            if [ -f "$imgfile" ] && [ -r "$imgfile" ]; then
+                # Copy image safely
+                xclip -selection clipboard -t image/png -i "$imgfile" 2>/dev/null
+                exit_code=$?
+                if [ $exit_code -ne 0 ]; then
+                    # xclip failed - notify user if possible
+                    command -v dunstify &>/dev/null && dunstify -u critical "Clipboard Error" "Failed to copy image"
+                fi
+            fi
+        else
+            # Text selected - copy safely
+            echo -n "$selection" | xclip -selection clipboard 2>/dev/null
+        fi
+
+        # Always exit cleanly
+        exit 0
+    fi
+}
+
+# Export for rofi script mode
+export -f clipboard_mode
+export IMGDIR
+
+#------------------------------------------------------------------------------
+# Main entry point - with safety check
+#------------------------------------------------------------------------------
+if [ -z "$ROFI_RETV" ]; then
+    # Launch rofi
+    rofi -modi "clipboard:$0" \
+         -show clipboard \
+         -theme ~/.config/rofi/clipboard.rasi
+else
+    # Handle rofi request
+    clipboard_mode "$@"
+fi
+
+#==============================================================================
+# OLD VERSIONS (kept for reference)
+#==============================================================================
+
+# VERSION WITH THUMBNAILS (caused crashes):
+# The thumbnail:// protocol might be causing rofi to crash
+# when trying to load missing image files
+#
+# if [ -f "$imgfile" ]; then
+#     printf 'Image: %s\0icon\x1fthumbnail://%s\0info\x1f%s\n' \
+#            "$(basename "$imgfile")" \
+#            "$imgfile" \
+#            "$line"
+# fi
+
+# SIMPLE DMENU VERSION (no images at all):
+# greenclip print | rofi -dmenu -i -p " " -theme ~/.config/rofi/clipboard.rasi | xclip -selection clipboard

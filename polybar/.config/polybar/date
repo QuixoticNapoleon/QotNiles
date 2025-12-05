@@ -1,0 +1,16 @@
+#!/bin/bash
+
+day=$(date +"%u")
+date=$(date +"%Y年%m月%d日 | %H:%M:%S")
+
+case $day in
+  1) kanji="月" ;;  # Monday
+  2) kanji="火" ;;  # Tuesday
+  3) kanji="水" ;;  # Wednesday
+  4) kanji="木" ;;  # Thursday
+  5) kanji="金" ;;  # Friday
+  6) kanji="土" ;;  # Saturday
+  7) kanji="日" ;;  # Sunday
+esac
+
+echo "$(date +"%Y年%m月%d日") (${kanji})"
