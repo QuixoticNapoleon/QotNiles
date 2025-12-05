@@ -1,0 +1,201 @@
+/*******************************************************
+ * CLIPBOARD MANAGER - With Images
+ *******************************************************/
+/*
+ * Clipboard theme with nice padding and image support
+ * - Normal font (10pt)
+ * - Comfortable padding (like rofidmenu)
+ * - Icons and images enabled
+ * - Clean and simple
+ */
+
+configuration {
+    font:                "Noto Sans Regular 10";
+    show-icons:          true;                    /* Enable icons for images */
+    icon-theme:          "Qogir";
+    display-clipboard:   " ";                   /* Clipboard icon restored */
+    disable-history:     false;
+    sidebar-mode:        false;
+    kb-cancel:           "Super+c,Escape";
+}
+
+/* Import base theme */
+@import "~/.config/rofi/config.rasi"
+
+/* Window - comfortable padding like rofidmenu */
+window {
+    background-color: @background;
+    border:           0;
+    padding:          30;        /* Nice padding like rofidmenu */
+    width:            50%;
+}
+
+mainbox {
+    border:  0;
+    padding: 0;
+}
+
+/* List view - compact vertical spacing */
+listview {
+    lines:        10;            /* Show 10 entries */
+    columns:      1;
+    fixed-height: 0;
+    border:       8px 0px 0px;   /* Like rofidmenu */
+    border-color: @separatorcolor;
+    scrollbar:    true;
+    padding:      2px 0px 0px;
+    spacing:      2px;           /* Reduced: was 4px, now 2px */
+}
+
+/* Element - minimal height (no vertical padding) */
+element {
+    border:      0;
+    padding:     0px 3px;        /* No vertical padding: 0px top/bottom, 3px left/right */
+}
+
+/* Icon configuration for images */
+element-icon {
+    size:    2em;                /* Good size for image thumbnails */
+    padding: 0 6px 0 0;          /* Space between icon and text */
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
+
+/* Element states */
+element.normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+
+element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+
+element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+
+element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+
+element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+
+element.normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+
+element.selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+
+element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+
+/* Scrollbar */
+scrollbar {
+    width:        4px;           /* Like rofidmenu */
+    border:       0;
+    handle-color: @normal-foreground;
+    handle-width: 8px;
+    padding:      0;
+}
+
+/* Input bar */
+inputbar {
+    spacing:    0;
+    text-color: @normal-foreground;
+    padding:    1px;
+    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+
+prompt {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+
+textbox-prompt-colon {
+    expand:     false;
+    str:        "";
+    margin:     0px 0.3em 0em 0em;
+    text-color: @normal-foreground;
+}
+
+entry {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+
+case-indicator {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+
+message {
+    border:       2px 0px 0px;
+    border-color: @separatorcolor;
+    padding:      1px;
+}
+
+textbox {
+    text-color: @foreground;
+}
+
+mode-switcher {
+    border:       2px 0px 0px;
+    border-color: @separatorcolor;
+}
+
+button {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+
+button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+/*-------------------------------------------------------
+ * PREVIOUS CONFIGURATIONS (commented for reference)
+ *-------------------------------------------------------
+ *
+ * Ultra-compact version had:
+ * - Font: 8pt
+ * - Window padding: 10px
+ * - List lines: 12
+ * - Element padding: 1px vertical
+ * - Spacing: 1px
+ * - Icons: disabled
+ *
+ * Comfortable version had:
+ * - Element padding: 3px all sides
+ * - Spacing: 4px
+ *
+ * Current version (compact vertical):
+ * - Font: 10pt
+ * - Window padding: 30px (like rofidmenu)
+ * - List lines: 10
+ * - Element padding: 1px vertical, 3px horizontal
+ * - Spacing: 2px (smaller vertical gaps)
+ * - Icons: enabled for images
+ */
