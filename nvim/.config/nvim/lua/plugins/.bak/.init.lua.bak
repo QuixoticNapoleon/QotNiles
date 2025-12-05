@@ -1,0 +1,119 @@
+-- Plugins
+return {
+
+    -- Nvim Tree
+    "nvim-tree/nvim-tree.lua",
+
+    -- Icons
+    "nvim-tree/nvim-web-devicons",
+
+    -- Color Picker
+    "uga-rosa/ccc.nvim",
+
+    -- Status Bar
+    'nvim-lualine/lualine.nvim',
+
+    -- Neoscroll
+    "karb94/neoscroll.nvim",
+    opts = {},
+
+
+    -- Telescope 
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.8',
+        -- or                          , branch = '0.1.x',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+
+    -- LSP
+    
+
+    -- LaTeX
+    {
+      "lervag/vimtex",
+      ft = "tex",
+      init = function()
+        -- Use Zathura as the PDF viewer
+        vim.g.vimtex_view_method = "zathura"
+    
+        -- Compile using latexmk automatically
+        vim.g.vimtex_compiler_method = "latexmk"
+        vim.g.vimtex_compiler_latexmk = {
+          build_dir = "build", -- optional: keep files in a separate folder
+          callback = 1,
+          continuous = 1,      -- automatically recompile on save
+          executable = "latexmk",
+          options = {
+            "-pdf",
+            "-interaction=nonstopmode",
+            "-synctex=1",
+          },
+        }
+    
+        -- Optional: disable conceal for clearer LaTeX text
+        vim.g.vimtex_syntax_conceal = {
+          accents = 0,
+          ligatures = 0,
+          cites = 0,
+          fancy = 0,
+          spacing = 0,
+          greek = 0,
+          math_delimiters = 0,
+          math_super_sub = 0,
+        }
+      end,
+    },
+    
+    -- LSP support
+    {
+      "neovim/nvim-lspconfig",
+      config = function()
+        require("lspconfig").texlab.setup({})
+      end,
+    },
+    
+    -- Autocompletion (optional)
+    { "hrsh7th/nvim-cmp" },
+    { "hrsh7th/cmp-nvim-lsp" },
+    
+    -- Snippets (optional)
+    { "L3MON4D3/LuaSnip" },
+    
+    -- Grammar & spell checking
+    { "rhysd/vim-grammarous", ft = "tex" },
+
+
+    -- Tab Bar
+    {'romgrk/barbar.nvim',
+      dependencies = {
+        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+      },
+      init = function() vim.g.barbar_auto_setup = false end,
+      opts = {
+        -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+        -- animation = true,
+        -- insert_at_start = true,
+        -- …etc.
+      },
+      version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    },
+    
+    -- Dashboard
+    {
+      'nvimdev/dashboard-nvim',
+      event = 'VimEnter',
+      config = function()
+        require('dashboard').setup {
+          -- config
+        }
+      end,
+      dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    },
+
+    -- THEMES
+    "martinsione/darkplus.nvim",
+    "folke/tokyonight.nvim",
+    "navarasu/onedark.nvim"
+
+} 
