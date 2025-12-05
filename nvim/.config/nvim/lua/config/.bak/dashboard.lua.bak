@@ -1,0 +1,109 @@
+-- local home = os.getenv('HOME')
+-- local db = require('dashboard')
+-- db.default_banner =
+-- {
+--     '',
+--     '',
+--     '',
+--     '██████╗ ██╗  ██╗      ███╗   ██╗██╗   ██╗██╗███╗   ███╗',
+--     '██╔══██╗██║  ██║      ████╗  ██║██║   ██║██║████╗ ████║',
+--     '██████╔╝███████║█████╗██╔██╗ ██║██║   ██║██║██╔████╔██║',
+--     '██╔══██╗██╔══██║╚════╝██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║',
+--     '██████╔╝██║  ██║      ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║',
+--     '╚═════╝ ╚═╝  ╚═╝      ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═ ',
+--     '',
+--     ' [TIP: To exit Vim, use a sledgehammer.] ',
+--     '',
+-- 
+-- 
+-- }
+-- db.preview_file_height = 11
+-- db.preview_file_width = 70
+-- db.custom_center =
+-- {
+--     { icon = '  ',
+--         desc = 'Recently Opened Files                   ',
+--         action = 'Telescope oldfiles',
+--         shortcut = 'SPC f h' },
+--     { icon = '  ',
+--         desc = 'New File                                ',
+--         action = ':tabnew',
+--         shortcut = 'SPC f n' },
+--     { icon = '  ',
+--         desc = 'Find File                               ',
+--         action = 'Telescope find_files find_command=rg,--hidden,--files',
+--         shortcut = 'SPC f f' },
+--     { icon = '  ',
+--         desc = 'File Browser                            ',
+--         action = 'Telescope file_browser',
+--         shortcut = 'SPC f b' },
+--     { icon = '  ',
+--         desc = 'Find Word                               ',
+--         action = 'Telescope live_grep',
+--         shortcut = 'SPC f w' },
+--     { icon = '  ',
+--         desc = 'View Harpoon Marks                      ',
+--         action = 'Telescope harpoon marks',
+--         shortcut = 'SPC f r' },
+--     { icon = '⚒  ',
+--         desc = 'Use A Sledgehammer                      ',
+--         action = 'qa',
+--         shortcut = 'SPC w q' },
+-- }
+
+local db = require("dashboard")
+db.setup {
+    theme = "hyper",
+  config = {
+    header = {
+    " ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ", 
+    " ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+    " ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+    " ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+    " ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+    " ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ "
+
+    },
+--     center = {
+--       { icon = " ", desc = "Find File", action = "Telescope find_files", shortcut = "f" },
+--       { icon = " ", desc = "Recent Files", action = "Telescope oldfiles", shortcut = "r" },
+--       { icon = " ", desc = "New File", action = "enew", shortcut = "n" },
+--       { icon = "󰓢 ", desc = "Open Config", action = "edit ~/.config/nvim/init.lua", shortcut = "c" },
+--       { icon = "󰗼 ", desc = "Quit", action = "qa", shortcut = "q" },
+--     },
+    center =
+    {
+        { icon = '  ',
+            desc = 'Recently Opened Files                   ',
+            action = 'Telescope oldfiles',
+            shortcut = 'SPC f h' },
+        { icon = '  ',
+            desc = 'New File                                ',
+            action = ':tabnew',
+            shortcut = 'SPC f n' },
+        { icon = '  ',
+            desc = 'Find File                               ',
+            action = 'Telescope find_files find_command=rg,--hidden,--files',
+            shortcut = 'SPC f f' },
+        { icon = '  ',
+            desc = 'File Browser                            ',
+            action = 'Telescope file_browser',
+            shortcut = 'SPC f b' },
+        { icon = '  ',
+            desc = 'Find Word                               ',
+            action = 'Telescope live_grep',
+            shortcut = 'SPC f w' },
+        { icon = '  ',
+            desc = 'View Harpoon Marks                      ',
+            action = 'Telescope harpoon marks',
+            shortcut = 'SPC f r' },
+        { icon = '⚒  ',
+            desc = 'Use A Sledgehammer                      ',
+            action = 'qa',
+            shortcut = 'SPC w q' },
+    },
+
+    footer = { "Have a productive day!" },
+  },
+}
+
