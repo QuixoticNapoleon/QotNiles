@@ -1,0 +1,30 @@
+[mgr]
+cwd            = { fg = "#94e2d5" }   # current working directory color
+hovered        = { fg = "#003636", bg = "#FFC600" }
+preview_hovered = { fg = "#003636", bg = "#00afd7" }
+
+marker_selected = { fg = "#00afd7", bg = "#00afd7" }
+marker_copied   = { fg = "#00e6a9", bg = "#00e6a9" }
+marker_cut      = { fg = "#ff5370", bg = "#ff5370" }
+
+count_selected = { fg = "#003636", bg = "#00afd7" }
+count_copied   = { fg = "#003636", bg = "#00e6a9" }
+count_cut      = { fg = "#003636", bg = "#ff5370" }
+
+find_keyword  = { fg = "#00e6a9", bold = true, underline=true }
+
+border_symbol = " "
+
+[tabs]
+active   = { fg = "#1e1e2e", bg = "#cdd6f4" }
+inactive = { fg = "#cdd6f4", bg = "#45475a" }
+sep_inner = { open = "[", close = "]" }
+
+[filetype]
+rules = [
+  # This matches all directories (folders) — the “*/” pattern is how Yazi distinguishes directories
+  { name = "*/", fg = "#00afd7", bg = "reset", bold = true },
+]
+
+[input]
+border = {fg = "#00afd7"}
