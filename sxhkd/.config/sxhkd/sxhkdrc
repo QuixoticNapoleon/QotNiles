@@ -146,6 +146,9 @@ ctrl + super + m
 super + slash
     ~/Scripts/blur-lock
 
+super + shift + q
+    fcitx5-remote -t
+
 
 # Applications
 
