@@ -131,6 +131,18 @@ setopt CORRECT_ALL
 # bindkey '^G' vi-cmd-mode
 # End of lines configured by zsh-newuser-install
 
+# Functions
+# fzf-history-widget() {
+#   local cmd
+#   cmd=$(fc -l 1 | tac | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
+#         fzf --height 40% --reverse --prompt="history> ") || return
+# 
+#   LBUFFER+="$cmd"
+# }
+# zle -N fzf-history-widget
+# bindkey '^R' fzf-history-widget
+source <(fzf --zsh)
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/bh/.zshrc'
 
@@ -166,14 +178,3 @@ alias rm="rm -i"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-fzf-history-widget() {
-  local cmd
-  cmd=$(fc -l 1 | tac | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
-        fzf --height 40% --reverse --prompt="history> ") || return
-  LBUFFER+="$cmd"
-}
-
-zle -N fzf-history-widget
-bindkey '^R' fzf-history-widget
