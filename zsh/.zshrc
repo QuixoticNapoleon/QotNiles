@@ -131,17 +131,15 @@ setopt CORRECT_ALL
 # bindkey '^G' vi-cmd-mode
 # End of lines configured by zsh-newuser-install
 
-# Functions
-# fzf-history-widget() {
-#   local cmd
-#   cmd=$(fc -l 1 | tac | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
-#         fzf --height 40% --reverse --prompt="history> ") || return
-# 
-#   LBUFFER+="$cmd"
-# }
-# zle -N fzf-history-widget
-# bindkey '^R' fzf-history-widget
+# FZF
 source <(fzf --zsh)
+
+# Zoxide
+eval "$(zoxide init zsh)"
+
+#export FZF_DEFAULT_OPTS="--color=fg+:#FFC600,bg+:#004747,header:#ff00ff,info:#FFC600,pointer:#8affff,marker:#8affff,prompt:#ffC600,spinner:#FFC600,query:#8affff,hl:#00e6a9,hl+:#00e6a9"
+
+export FZF_DEFAULT_OPTS="--color=fg+:#FFC600,bg+:#395e5e,header:#ff00ff,info:#FFC600,pointer:#8affff,marker:#8affff,prompt:#ffC600,spinner:#FFC600,query:#8affff,hl:#00e6a9,hl+:#00e6a9"
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/bh/.zshrc'
