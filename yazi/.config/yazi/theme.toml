@@ -4,8 +4,10 @@ cwd            = { fg = "#94e2d5" }   # current working directory color
 #preview_hovered = { fg = "#003636", bg = "#8affff" }
 #hovered        = { fg = "#FFFFFF", bg = "#395e5e" }
 #preview_hovered = { fg = "#FFFFFF", bg = "#395e5e" }
-hovered        = { bg = "#395e5e" }
-preview_hovered = { bg = "#395e5e" }
+#hovered        = { bg = "#003637" }
+#preview_hovered = { bg = "#003637" }
+hovered        = { fg = "#FFFFFF", bg = "#008282" }
+preview_hovered        = { fg = "#FFFFFF", bg = "#008282" }
 
 marker_marked = { fg = "#8affff", bg = "#8affff" }
 marker_selected = { fg = "#00afd7", bg = "#00afd7" }
@@ -29,17 +31,17 @@ sep_outer = { open = "", close = "" }
 [filetype]
 rules = [
   # This matches all directories (folders) — the “*/” pattern is how Yazi distinguishes directories
-  { name = "*/", fg = "#00afd7", bg = "reset", bold = true },
+  { name = "*/", fg = "#74c4c4", bg = "reset", bold = true },
 ]
 
 [input]
-border = {fg = "#00afd7"}
+border = {fg = "#74c4c4"}
 
 [tasks]
-border = {fg = "#00afd7"}
+border = {fg = "#74c4c4"}
 
 [spot]
-border = {fg = "#00afd7"}
+border = {fg = "#74c4c4"}
 title = {fg = "#8affff"}
 tbl_col = {fg = "#00e6a9"}
 
