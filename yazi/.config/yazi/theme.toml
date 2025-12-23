@@ -1,8 +1,13 @@
 [mgr]
 cwd            = { fg = "#94e2d5" }   # current working directory color
-hovered        = { fg = "#003636", bg = "#FFC600" }
-preview_hovered = { fg = "#003636", bg = "#00afd7" }
+#hovered        = { fg = "#003636", bg = "#8affff" }
+#preview_hovered = { fg = "#003636", bg = "#8affff" }
+#hovered        = { fg = "#FFFFFF", bg = "#395e5e" }
+#preview_hovered = { fg = "#FFFFFF", bg = "#395e5e" }
+hovered        = { bg = "#395e5e" }
+preview_hovered = { bg = "#395e5e" }
 
+marker_marked = { fg = "#8affff", bg = "#8affff" }
 marker_selected = { fg = "#00afd7", bg = "#00afd7" }
 marker_copied   = { fg = "#00e6a9", bg = "#00e6a9" }
 marker_cut      = { fg = "#ff5370", bg = "#ff5370" }
@@ -11,14 +16,15 @@ count_selected = { fg = "#003636", bg = "#00afd7" }
 count_copied   = { fg = "#003636", bg = "#00e6a9" }
 count_cut      = { fg = "#003636", bg = "#ff5370" }
 
-find_keyword  = { fg = "#00e6a9", bold = true, underline=true }
+find_keyword  = { fg = "#FFC600", bold = true}
 
 border_symbol = " "
 
 [tabs]
-active   = { fg = "#1e1e2e", bg = "#cdd6f4" }
-inactive = { fg = "#cdd6f4", bg = "#45475a" }
-sep_inner = { open = "[", close = "]" }
+active   = { fg = "#015959", bg = "#8affff" }
+inactive = { fg = "#8affff", bg = "#015959"}
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
 
 [filetype]
 rules = [
@@ -28,3 +34,33 @@ rules = [
 
 [input]
 border = {fg = "#00afd7"}
+
+[tasks]
+border = {fg = "#00afd7"}
+
+[spot]
+border = {fg = "#00afd7"}
+title = {fg = "#8affff"}
+tbl_col = {fg = "#00e6a9"}
+
+[status]
+# entire bar text / background
+# separators between blocks
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+[mode]
+normal_main = { fg = "#003636", bg = "#2dc5fc", bold = true }
+select_main = { fg = "#003636", bg = "#d38cff", bold = true }
+unset_main = { fg = "#003636", bg = "#f07178", bold = true }
+
+normal_alt = { fg = "#8affff", bg = "#008282", bold = true }
+select_alt = { fg = "#8affff", bg = "#008282", bold = true }
+unset_alt= { fg = "#8affff", bg = "#008282", bold = true }
+
+[which]
+
+# description text ("Go to top", etc.)
+desc = { fg = "#8affff"}
+mask = {} # empty background
+cand = { fg = "#FFC600"}
