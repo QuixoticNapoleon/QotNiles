@@ -125,7 +125,7 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=1000000000
 setopt beep notify
-setopt CORRECT_ALL
+setopt CORRECT
 # bindkey -v
 # Map Ctrl+G to switch to normal mode (like Escape)
 # bindkey '^G' vi-cmd-mode
