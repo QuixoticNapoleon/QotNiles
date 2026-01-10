@@ -64,7 +64,7 @@ feh --bg-fill /home/bh/Pictures/Wallpapers/TealNebula.jpg & # Wallpaper
 
 # bspc rule -a "kitty" desktop=^1 follow=on # Only Opens Kitty in Desktop 1
 bspc rule -a "firefox" desktop=^2 follow=on # Only Opens Firefox in Desktop 2
-bspc rule -a "zen" desktop=^2 follow=on # Only Opens Zen-Browser in Desktop 2
+# bspc rule -a "zen" desktop=^2 follow=on # Only Opens Zen-Browser in Desktop 2
 bspc rule -a "Emacs" desktop=^3 follow=on # Only Opens Emacs in Desktop 3
 
 
