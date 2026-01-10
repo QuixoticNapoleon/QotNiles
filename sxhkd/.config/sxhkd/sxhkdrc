@@ -159,7 +159,7 @@ super + alt + Return
     kitty --class floating # Floating Terminal
 
 super + w 
-    zen-browser	# Browser
+    firefox # Browser
 
 super + d 	
     rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi # Application Launcher

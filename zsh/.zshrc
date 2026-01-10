@@ -176,3 +176,6 @@ alias rm="rm -i"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Created by `pipx` on 2026-01-07 01:53:19
+export PATH="$PATH:/home/bh/.local/bin"
