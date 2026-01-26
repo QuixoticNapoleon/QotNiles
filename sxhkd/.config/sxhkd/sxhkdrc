@@ -131,10 +131,10 @@ super + f
 	~/Scripts/fullscreen
     # bspc node -t \~fullscreen # Toggle Fullscreen
 
-super + c
+super + shift + c
     bspc node -c # Delete Window
 
-super + shift + c
+super + shift + r
     bspc wm -r && pkill -USR1 -x sxhkd # Restarts BSPWM & sxhkd
 
 ctrl + super + m
