@@ -1,0 +1,223 @@
+############################################
+# Keybindings
+############################################
+
+input {
+    kb_layout = us
+    kb_variant = dvps
+    kb_options = caps:backspace
+}
+
+
+############################################
+# Colours
+############################################
+
+$darkcyan = rgb(007575)
+$lightcyan = rgb(1ebaba)
+$lightercyan = rgb(19e0e0)
+$red = rgb(e55235)
+
+
+############################################
+# Workspaces (Hyprland calls them "desktops")
+############################################
+
+# Names: 一 二 三 四 五 六 七 八 九 十 󱉼
+# You don’t assign them globally; you move to them or bind to them.
+
+# Example binds (uncomment if you want):
+# bind = SUPER, 1, workspace, name:一
+# bind = SUPER, 2, workspace, name:二
+# …
+# bind = SUPER, 0, workspace, name:󱉼
+
+
+############################################
+# Window Appearance
+############################################
+
+general {
+    border_size = 1
+    gaps_in = 6
+    gaps_out = 6
+}
+
+decoration {
+    rounding = 0
+
+    active_border_color = $lightercyan
+    inactive_border_color = $darkcyan
+    urgent_border_color = $red
+
+    # No split ratio or monocle mode — Hyprland tiling is automatic.
+}
+
+
+############################################
+# Startup Applications
+############################################
+
+exec-once = kitty
+exec-once = kitty
+
+exec-once = polybar
+
+exec-once = feh --bg-fill /home/bh/Pictures/Wallpapers/TealNebula.jpg
+
+exec-once = dunst
+
+
+
+############################################
+# Floating Rules
+############################################
+
+windowrulev2 = float, class:^(floating)$
+
+
+############################################
+# MOVE FOCUS  (bspc node -f X)
+############################################
+
+bind = SUPER, h, movefocus, l
+bind = SUPER, j, movefocus, d
+bind = SUPER, k, movefocus, u
+bind = SUPER, l, movefocus, r
+
+
+############################################
+# MOVE WINDOW  (bspc node -s X)
+############################################
+
+bind = SUPER SHIFT, h, movewindow, l
+bind = SUPER SHIFT, j, movewindow, d
+bind = SUPER SHIFT, k, movewindow, u
+bind = SUPER SHIFT, l, movewindow, r
+
+
+############################################
+# PRESEL (Hyprland does not have preselection)
+# → closest equivalent is splitratio and togglesplit
+############################################
+
+# directional preselect
+bind = SUPER CTRL, h, splitratio, -0.1
+bind = SUPER CTRL, j, splitratio, +0.1
+bind = SUPER CTRL, k, splitratio, -0.1
+bind = SUPER CTRL, l, splitratio, +0.1
+
+# ratio presets
+bind = SUPER CTRL, n, splitratio, 0.75
+bind = SUPER CTRL, t, splitratio, 0.25
+
+
+############################################
+# SWITCH WORKSPACES
+############################################
+
+bind = SUPER, ampersand, workspace, name:一
+bind = SUPER, bracketleft, workspace, name:二
+bind = SUPER, braceleft, workspace, name:三
+bind = SUPER, braceright, workspace, name:四
+bind = SUPER, parenleft, workspace, name:五
+bind = SUPER, equal, workspace, name:六
+bind = SUPER, asterisk, workspace, name:七
+bind = SUPER, parenright, workspace, name:八
+bind = SUPER, plus, workspace, name:九
+bind = SUPER, bracketright, workspace, name:十
+bind = SUPER, exclam, workspace, name:󱉼
+
+
+############################################
+# MOVE WINDOW TO WORKSPACE
+############################################
+
+bind = SUPER SHIFT, ampersand, movetoworkspace, name:一
+bind = SUPER SHIFT, bracketleft, movetoworkspace, name:二
+bind = SUPER SHIFT, braceleft, movetoworkspace, name:三
+bind = SUPER SHIFT, braceright, movetoworkspace, name:四
+bind = SUPER SHIFT, parenleft, movetoworkspace, name:五
+bind = SUPER SHIFT, equal, movetoworkspace, name:六
+bind = SUPER SHIFT, asterisk, movetoworkspace, name:七
+bind = SUPER SHIFT, parenright, movetoworkspace, name:八
+bind = SUPER SHIFT, plus, movetoworkspace, name:九
+bind = SUPER SHIFT, bracketright, movetoworkspace, name:十
+bind = SUPER SHIFT, exclam, movetoworkspace, name:󱉼
+
+
+############################################
+# BSPWM FUNCTIONS → HYPRLAND EQUIVALENTS
+############################################
+
+# Toggle Monocle
+bind = SUPER, m, togglefloating
+
+# Fullscreen (your custom script)
+bind = SUPER, f, exec, ~/Scripts/fullscreen
+
+# Close window
+bind = SUPER, c, killactive
+
+# Restart WM (Hyprland version)
+bind = SUPER SHIFT, c, exec, hyprctl reload
+
+# Swap with last window
+bind = SUPER CTRL, m, movetolast
+
+
+############################################
+# OTHER FUNCTIONS
+############################################
+
+# Screen locker
+bind = SUPER, slash, exec, ~/Scripts/blur-lock
+
+
+############################################
+# APPLICATIONS
+############################################
+
+bind = SUPER, Return, exec, kitty
+bind = SUPER ALT, Return, exec, kitty --class floating
+
+bind = SUPER, w, exec, zen-browser
+bind = SUPER, d, exec, rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
+bind = SUPER, v, exec, bash ~/Scripts/clipboard
+bind = SUPER, e, exec, emacs
+bind = SUPER, s, exec, ~/Scripts/screenshot
+bind = SUPER SHIFT, s, exec, ~/Scripts/snip
+
+
+############################################
+# AUDIO KEYS
+############################################
+
+# Volume up
+bind = , XF86AudioRaiseVolume, exec, \
+  pactl set-sink-volume @DEFAULT_SINK@ +5% && VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+%' | head -1) && dunstify " Volume: $VOLUME" -h int:value:"${VOLUME%\%}" -r 2593 -t 1000
+
+# Volume down
+bind = , XF86AudioLowerVolume, exec, \
+  pactl set-sink-volume @DEFAULT_SINK@ -5% && VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+%' | head -1) && dunstify " Volume: $VOLUME" -h int:value:"${VOLUME%\%}" -r 2593 -t 1000
+
+# Mute
+bind = , XF86AudioMute, exec, ~/Scripts/mute
+
+############################################
+# Application Rules
+############################################
+
+# Window rules equivalent of bspc rule
+
+# kitty → workspace 一
+windowrulev2 = workspace name:一, class:^(kitty)$
+
+# firefox → workspace 二
+windowrulev2 = workspace name:二, class:^(firefox)$
+
+# zen → workspace 二
+windowrulev2 = workspace name:二, class:^(zen|zen-browser)$
+
+# Emacs → workspace 三
+windowrulev2 = workspace name:三, class:^(Emacs)$
