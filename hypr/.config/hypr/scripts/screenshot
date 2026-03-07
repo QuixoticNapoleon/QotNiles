@@ -1,0 +1,15 @@
+#!/bin/bash
+
+mkdir -p ~/Pictures/Screenshots
+
+FILE=~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+
+if [[ "$1" == "snip" ]]; then
+    grim -g "$(slurp)" "$FILE" || exit 1
+else
+    grim "$FILE" || exit 1
+fi
+
+wl-copy --type image/png < "$FILE"
+
+notify-send "Screenshot Taken" "Saved to $FILE" -i "$FILE"
