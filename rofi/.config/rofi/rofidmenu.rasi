@@ -23,7 +23,8 @@ configuration {
 
 window {
     background-color: @background;
-    border:           0;
+    border:           1px;
+    border-color:     #8affff;
     padding:          30;
 }
 listview {
