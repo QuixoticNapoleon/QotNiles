@@ -1,0 +1,12 @@
+set recolor true
+set recolor-darkcolor "#003636"
+set recolor-lightcolor "#ffffff"     # or whatever text colour you prefer
+
+# set default-bg "#003636"
+set default-bg rgba(0,54,54,0.7)
+
+set statusbar-bg "#003636"
+# set statusbar-fg "#88c0d0"
+set statusbar-fg "#74c4c4"
+set statusbar-h-padding 6
+set statusbar-v-padding 2
