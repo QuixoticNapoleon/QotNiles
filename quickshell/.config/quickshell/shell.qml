@@ -83,6 +83,7 @@ PanelWindow {
                 }
 
                 Text {
+                    id: wlanIface
                     text: "wlo1"
                     color: "#FFC500"
                     font.family: "Source Code Pro"
@@ -116,20 +117,26 @@ PanelWindow {
 
             Process {
                 id: wlanProc
-                command: ["sh", "-c", "iwgetid -r 2>/dev/null; ip -4 -o addr show wlo1 2>/dev/null | cut -d' ' -f7 | cut -d/ -f1"]
+                command: ["sh", "-c", "WIFACE=$(ip -o link show up | grep -oP 'wl[^:]+' | head -1); EIFACE=$(ip -o link show up | grep -oP 'en[^:]+' | head -1); if [ -n \"$WIFACE\" ]; then SSID=$(iwgetid -r 2>/dev/null); IP=$(ip -4 -o addr show $WIFACE 2>/dev/null | cut -d' ' -f7 | cut -d/ -f1); echo \"wifi $WIFACE $SSID $IP\"; elif [ -n \"$EIFACE\" ]; then IP=$(ip -4 -o addr show $EIFACE 2>/dev/null | cut -d' ' -f7 | cut -d/ -f1); echo \"eth $EIFACE $IP\"; else echo disconnected; fi"]
                 stdout: StdioCollector {
                     onStreamFinished: {
-                        var lines = this.text.trim().split("\n")
-                        var ssid = lines[0] || ""
-                        var ip = lines[1] || ""
-                        if (ssid && ip) {
+                        var parts = this.text.trim().split(" ")
+                        var type = parts[0]
+                        if (type === "wifi") {
                             wlanIcon.text = ""
-                            wlanSsid.text = ssid
+                            wlanIface.text = parts[1]
+                            wlanSsid.text = parts[2] || ""
                             wlanSsid.color = root.fg
                             wlanSsid.font.bold = true
-                            wlanIp.text = ip
+                            wlanIp.text = parts[3] || ""
+                        } else if (type === "eth") {
+                            wlanIcon.text = "ETH_ICON"
+                            wlanIface.text = parts[1]
+                            wlanSsid.text = ""
+                            wlanIp.text = parts[2] || ""
                         } else {
                             wlanIcon.text = "󱚼"
+                            wlanIface.text = ""
                             wlanSsid.text = "DISCONNECTED"
                             wlanSsid.color = "#707880"
                             wlanSsid.font.bold = false
