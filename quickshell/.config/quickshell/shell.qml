@@ -68,6 +68,7 @@ PanelWindow {
 
         // Distro icon
         Rectangle {
+            id: distroModule
             color: root.bg2
             Layout.fillHeight: true
             implicitWidth: distroIcon.implicitWidth + 16
@@ -79,6 +80,18 @@ PanelWindow {
                 color: root.fg
                 font.family: "Symbols Nerd Font"
                 font.pixelSize: 14
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    dropdownToggleProc.running = true
+                }
+            }
+
+            Process {
+                id: dropdownToggleProc
+                command: ["sh", "-c", "if hyprctl clients -j | jq -e '.[] | select(.class==\"quickshell-dropdown\")' > /dev/null 2>&1; then pkill -f 'kitty --class quickshell-dropdown'; else kitty --class quickshell-dropdown --override font_size=8 -e sh -c 'fastfetch; echo; printf \"\\e[1;33mI USE ARCH BTW!!!!\\e[0m\\n\"; echo; exec $SHELL' & fi"]
             }
         }
 
