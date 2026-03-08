@@ -4,6 +4,7 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Quickshell.Services.SystemTray
 
 PanelWindow {
     id: root
@@ -246,7 +247,63 @@ PanelWindow {
         anchors.bottom: parent.bottom
         spacing: -1
 
-        // Powerline separator: transparent -> bg1
+        // Powerline separator: transparent -> bg2
+        Text {
+            text: ""
+            color: root.bg2
+            font.family: "Inconsolata for Powerline"
+            font.pixelSize: 25
+            Layout.fillHeight: true
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        // System tray
+        Rectangle {
+            color: root.bg2
+            Layout.fillHeight: true
+            implicitWidth: trayRow.implicitWidth + 12
+            // visible: SystemTray.items.values.length > 0
+
+            RowLayout {
+                id: trayRow
+                anchors.centerIn: parent
+                spacing: 6
+
+                Text {
+                    text: ""
+                    color: root.fg
+                    font.family: "Symbols Nerd Font"
+                    font.pixelSize: 12
+                }
+
+                Repeater {
+                    model: SystemTray.items
+
+                    Image {
+                        required property SystemTrayItem modelData
+                        source: modelData.icon
+                        sourceSize.width: 16
+                        sourceSize.height: 16
+                        width: 16
+                        height: 16
+
+                        MouseArea {
+                            anchors.fill: parent
+                            acceptedButtons: Qt.LeftButton | Qt.RightButton
+                            onClicked: function(mouse) {
+                                if (mouse.button === Qt.LeftButton) {
+                                    modelData.activate()
+                                } else {
+                                    modelData.display(root, mouse.x, mouse.y)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Powerline separator: bg2 -> bg1
         Text {
             text: ""
             color: root.bg1
@@ -254,14 +311,190 @@ PanelWindow {
             font.pixelSize: 25
             Layout.fillHeight: true
             verticalAlignment: Text.AlignVCenter
-        }
 
+            Rectangle {
+                anchors.fill: parent
+                color: root.bg2
+                z: -1
+            }
+        }
 
         // Volume module
         Rectangle {
+            id: volModule
             color: root.bg1
             Layout.fillHeight: true
             implicitWidth: volRow.implicitWidth + 16
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (!volPopup.visible) {
+                        var pos = volModule.mapToItem(null, 0, 0)
+                        volPopup.popupX = pos.x - 40
+                        volPopup.visible = true
+                        volPopup.showing = true
+                        volGrab.active = true
+                    } else {
+                        volGrab.active = false
+                        volPopup.showing = false
+                        volCloseTimer.start()
+                    }
+                }
+            }
+
+            Timer {
+                id: volCloseTimer
+                interval: 160
+                onTriggered: volPopup.visible = false
+            }
+
+            PopupWindow {
+                id: volPopup
+                anchor.window: root
+                property real popupX: 0
+                anchor.rect.x: popupX
+                anchor.rect.y: root.height
+                visible: false
+                width: 200
+                height: 80
+                color: "transparent"
+
+                property bool showing: false
+                property real currentVol: 0
+
+                HyprlandFocusGrab {
+                    id: volGrab
+                    windows: [volPopup]
+                    onCleared: {
+                        volPopup.showing = false
+                        volCloseTimer.start()
+                    }
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: Qt.rgba(0, 0.212, 0.212, 1)
+                    border.color: "#8affff"
+                    border.width: 1
+
+                    opacity: volPopup.showing ? 1.0 : 0.0
+                    scale: volPopup.showing ? 1.0 : 0.95
+                    transformOrigin: Item.Top
+
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+                    Behavior on scale {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+                }
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    anchors.margins: 12
+                    spacing: 2
+
+                    opacity: volPopup.showing ? 1.0 : 0.0
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+
+                    RowLayout {
+                        Layout.alignment: Qt.AlignHCenter
+                        spacing: 6
+
+                        Text {
+                            id: volPopupIcon
+                            color: root.fg
+                            font.family: "Symbols Nerd Font"
+                            font.pixelSize: 14
+                        text: volSlider.value === 0 ? "" : volSlider.value <= 50 ? "" : ""
+                        }
+
+                        Text {
+                            id: volSliderLabel
+                            color: "#FFC500"
+                            font.family: "Source Code Pro"
+                            font.pixelSize: 13
+                            font.bold: true
+                            text: Math.round(volSlider.value) + "%"
+                        }
+                    }
+
+                    Item {
+                        id: volSlider
+                        Layout.fillWidth: true
+                        height: 20
+
+                        property real value: volPopup.currentVol
+                        property bool pressed: sliderMouse.pressed
+
+                        Rectangle {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: parent.width
+                            height: 4
+                            radius: 2
+                            color: "#4d7f7f"
+
+                            Rectangle {
+                                width: Math.max(0, Math.min(1, volSlider.value / 300)) * parent.width
+                                height: parent.height
+                                color: volSlider.value > 100 ? "#FFC500" : "#8affff"
+                                radius: 2
+                            }
+                        }
+
+                        Rectangle {
+                            x: Math.max(0, Math.min(1, volSlider.value / 300)) * (parent.width - width)
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 12
+                            height: 12
+                            radius: 6
+                            color: volSlider.value > 100 ? "#FFC500" : "#6ae8eb"
+                        }
+
+                        MouseArea {
+                            id: sliderMouse
+                            anchors.fill: parent
+                            onPressed: function(mouse) { updateVol(mouse) }
+                            onPositionChanged: function(mouse) { if (pressed) updateVol(mouse) }
+
+                            function updateVol(mouse) {
+                                var ratio = Math.max(0, Math.min(1, mouse.x / width))
+                                var vol = Math.round(ratio * 300)
+                                volSlider.value = vol
+                                volSetProc.command = ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", (vol / 100).toFixed(2)]
+                                volSetProc.running = true
+                            }
+                        }
+                    }
+                }
+
+                Process {
+                    id: volSetProc
+                }
+
+                Timer {
+                    interval: 200
+                    running: volPopup.visible
+                    repeat: true
+                    triggeredOnStart: true
+                    onTriggered: volReadProc.running = true
+                }
+
+                Process {
+                    id: volReadProc
+                    command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf \"%.0f\", $2*100}'"]
+                    stdout: StdioCollector {
+                        onStreamFinished: {
+                            var val = parseInt(this.text.trim())
+                            if (!isNaN(val) && !volSlider.pressed)
+                                volPopup.currentVol = val
+                        }
+                    }
+                }
+            }
 
             RowLayout {
                 id: volRow
@@ -296,7 +529,7 @@ PanelWindow {
                 id: volProc
                 command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if (/MUTED/) print \"MUTED\"; else printf \"%.0f%%\", $2*100}'"]
                 stdout: StdioCollector {
-                    onStreamFinished: { var out = this.text.trim(); var muted = (out === "MUTED"); volText.text = out; volIcon.text = muted ? "" : "" }
+                    onStreamFinished: { var out = this.text.trim(); var muted = (out === "MUTED"); volText.text = out; volIcon.text = muted ? "󰖁" : "" }
                 }
             }
         }
@@ -665,9 +898,158 @@ PanelWindow {
 
         // Time module
         Rectangle {
+            id: timeModule
             color: root.bg1
             Layout.fillHeight: true
             implicitWidth: timeRow.implicitWidth + 16
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (!clockPopup.visible) {
+                        var pos = timeModule.mapToItem(null, 0, 0)
+                        clockPopup.popupX = pos.x - 100
+                        clockPopup.visible = true
+                        clockPopup.showing = true
+                    } else {
+                        clockPopup.showing = false
+                        clockCloseTimer.start()
+                    }
+                }
+            }
+
+            Timer {
+                id: clockCloseTimer
+                interval: 160
+                onTriggered: clockPopup.visible = false
+            }
+
+            PopupWindow {
+                id: clockPopup
+                anchor.window: root
+                property real popupX: root.width - 250
+                anchor.rect.x: popupX
+                anchor.rect.y: root.height
+                visible: false
+                width: 220
+                height: 240
+                color: "transparent"
+
+                property bool showing: false
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: Qt.rgba(0, 0.212, 0.212, 1)
+                    border.color: "#8affff"
+                    border.width: 1
+
+                    opacity: clockPopup.showing ? 1.0 : 0.0
+                    scale: clockPopup.showing ? 1.0 : 0.95
+                    transformOrigin: Item.Top
+
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+                    Behavior on scale {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+                }
+
+                Canvas {
+                    id: clockCanvas
+                    anchors.fill: parent
+                    anchors.margins: 15
+
+                    opacity: clockPopup.showing ? 1.0 : 0.0
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+
+                    property real hours: 0
+                    property real minutes: 0
+                    property real seconds: 0
+
+                    Timer {
+                        interval: 1000
+                        running: clockPopup.visible
+                        repeat: true
+                        triggeredOnStart: true
+                        onTriggered: {
+                            var now = new Date()
+                            clockCanvas.hours = now.getHours()
+                            clockCanvas.minutes = now.getMinutes()
+                            clockCanvas.seconds = now.getSeconds()
+                            clockCanvas.requestPaint()
+                        }
+                    }
+
+                    onPaint: {
+                        var ctx = getContext("2d")
+                        var size = Math.min(width, height)
+                        var cx = width / 2
+                        var cy = height / 2
+                        var r = size / 2 - 5
+
+                        ctx.clearRect(0, 0, width, height)
+
+                        // Clock face circle
+                        ctx.beginPath()
+                        ctx.arc(cx, cy, r, 0, 2 * Math.PI)
+                        ctx.strokeStyle = "#8affff"
+                        ctx.lineWidth = 1.5
+                        ctx.stroke()
+
+                        // Hour markers
+                        for (var i = 0; i < 12; i++) {
+                            var angle = (i * 30 - 90) * Math.PI / 180
+                            var inner = i % 3 === 0 ? r - 12 : r - 8
+                            var outer = r - 3
+                            ctx.beginPath()
+                            ctx.moveTo(cx + inner * Math.cos(angle), cy + inner * Math.sin(angle))
+                            ctx.lineTo(cx + outer * Math.cos(angle), cy + outer * Math.sin(angle))
+                            ctx.strokeStyle = i % 3 === 0 ? "#FFC500" : "#6ae8eb"
+                            ctx.lineWidth = i % 3 === 0 ? 2 : 1
+                            ctx.stroke()
+                        }
+
+                        // Hour hand
+                        var hAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * Math.PI / 180
+                        ctx.beginPath()
+                        ctx.moveTo(cx, cy)
+                        ctx.lineTo(cx + r * 0.5 * Math.cos(hAngle), cy + r * 0.5 * Math.sin(hAngle))
+                        ctx.strokeStyle = "#FFC500"
+                        ctx.lineWidth = 3
+                        ctx.lineCap = "round"
+                        ctx.stroke()
+
+                        // Minute hand
+                        var mAngle = (minutes * 6 + seconds * 0.1 - 90) * Math.PI / 180
+                        ctx.beginPath()
+                        ctx.moveTo(cx, cy)
+                        ctx.lineTo(cx + r * 0.7 * Math.cos(mAngle), cy + r * 0.7 * Math.sin(mAngle))
+                        ctx.strokeStyle = "#6ae8eb"
+                        ctx.lineWidth = 2
+                        ctx.lineCap = "round"
+                        ctx.stroke()
+
+                        // Second hand
+                        var sAngle = (seconds * 6 - 90) * Math.PI / 180
+                        ctx.beginPath()
+                        ctx.moveTo(cx, cy)
+                        ctx.lineTo(cx + r * 0.8 * Math.cos(sAngle), cy + r * 0.8 * Math.sin(sAngle))
+                        ctx.strokeStyle = "#8affff"
+                        ctx.lineWidth = 1
+                        ctx.lineCap = "round"
+                        ctx.stroke()
+
+                        // Center dot
+                        ctx.beginPath()
+                        ctx.arc(cx, cy, 3, 0, 2 * Math.PI)
+                        ctx.fillStyle = "#FFC500"
+                        ctx.fill()
+                    }
+                }
+            }
 
             RowLayout {
                 id: timeRow
