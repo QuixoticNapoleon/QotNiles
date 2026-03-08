@@ -717,6 +717,11 @@ PanelWindow {
                     anchors.margins: 11
                     spacing: 8
 
+                    opacity: calendarPopup.showing ? 1.0 : 0.0
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+
                     // Month/Year header with navigation
                     RowLayout {
                         Layout.fillWidth: true
@@ -784,7 +789,7 @@ PanelWindow {
                                 text: modelData
                                 color: "#FFC500"
                                 font.family: "Source Code Pro"
-                                font.pixelSize: 12
+                                font.pixelSize: 14
                                 font.bold: true
                                 horizontalAlignment: Text.AlignHCenter
                             }
@@ -809,7 +814,7 @@ PanelWindow {
                             text: model.day
                             color: isToday ? "#FFC500" : isCurrentMonth ? root.fg : "#4d7f7f"
                             font.family: "Source Code Pro"
-                            font.pixelSize: 12
+                            font.pixelSize: 14
                             font.bold: isToday
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
