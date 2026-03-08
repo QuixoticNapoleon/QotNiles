@@ -63,6 +63,38 @@ PanelWindow {
         anchors.bottom: parent.bottom
         spacing: -1
 
+        // Distro icon
+        Rectangle {
+            color: root.bg2
+            Layout.fillHeight: true
+            implicitWidth: distroIcon.implicitWidth + 16
+
+            Text {
+                id: distroIcon
+                anchors.centerIn: parent
+                text: "󰣇"
+                color: root.fg
+                font.family: "Symbols Nerd Font"
+                font.pixelSize: 14
+            }
+        }
+
+        // Powerline separator: bg2 -> bg1
+        Text {
+            text: ""
+            color: root.bg2
+            font.family: "Inconsolata for Powerline"
+            font.pixelSize: 25
+            Layout.fillHeight: true
+            verticalAlignment: Text.AlignVCenter
+
+            Rectangle {
+                anchors.fill: parent
+                color: root.bg1
+                z: -1
+            }
+        }
+
         // Wlan module
         Rectangle {
             color: root.bg1
@@ -147,10 +179,58 @@ PanelWindow {
             }
         }
 
-        // Powerline separator: bg1 -> transparent
+        // Powerline separator: bg1 -> bg2
         Text {
             text: ""
             color: root.bg1
+            font.family: "Inconsolata for Powerline"
+            font.pixelSize: 25
+            Layout.fillHeight: true
+            verticalAlignment: Text.AlignVCenter
+
+            Rectangle {
+                anchors.fill: parent
+                color: root.bg2
+                z: -1
+            }
+        }
+
+        // Window title module
+        Rectangle {
+            color: root.bg2
+            Layout.fillHeight: true
+            implicitWidth: windowRow.implicitWidth + 16
+
+            RowLayout {
+                id: windowRow
+                anchors.centerIn: parent
+                spacing: 4
+
+                Text {
+                    text: ""
+                    color: root.fg
+                    font.family: "Symbols Nerd Font"
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    id: windowTitle
+                    color: root.fg
+                    font.family: "Source Code Pro"
+                    font.pixelSize: 14
+                    text: {
+                        var title = Hyprland.activeToplevel?.title ?? ""
+                        if (title.length > 50) return title.substring(0, 47) + "..."
+                        return title
+                    }
+                }
+            }
+        }
+
+        // Powerline separator: bg2 -> transparent
+        Text {
+            text: ""
+            color: root.bg2
             font.family: "Inconsolata for Powerline"
             font.pixelSize: 25
             Layout.fillHeight: true
