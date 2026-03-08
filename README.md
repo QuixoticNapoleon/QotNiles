@@ -2,7 +2,7 @@
 
 Personal dotfiles.
 
-- I love teal!
+- I love Teal!
 - I use ARCH BTW!!!!
 - Hyprland and BSPWM configurations both included.
 
