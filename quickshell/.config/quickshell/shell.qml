@@ -5,6 +5,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Services.SystemTray
+import Quickshell.Services.Pipewire
 
 PanelWindow {
     id: root
@@ -361,7 +362,9 @@ PanelWindow {
                 color: "transparent"
 
                 property bool showing: false
-                property real currentVol: 0
+                property var sink: Pipewire.defaultAudioSink
+                property real currentVol: sink && sink.audio ? Math.round(sink.audio.volume * 100) : 0
+                property bool isMuted: sink && sink.audio ? sink.audio.muted : false
 
                 HyprlandFocusGrab {
                     id: volGrab
@@ -393,7 +396,7 @@ PanelWindow {
                 ColumnLayout {
                     anchors.fill: parent
                     anchors.margins: 12
-                    spacing: 2
+                    spacing: 0
 
                     opacity: volPopup.showing ? 1.0 : 0.0
                     Behavior on opacity {
@@ -408,7 +411,7 @@ PanelWindow {
                             id: volPopupIcon
                             color: root.fg
                             font.family: "Symbols Nerd Font"
-                            font.pixelSize: 14
+                            font.pixelSize: 18
                         text: volSlider.value === 0 ? "" : volSlider.value <= 50 ? "" : ""
                         }
 
@@ -416,7 +419,7 @@ PanelWindow {
                             id: volSliderLabel
                             color: "#FFC500"
                             font.family: "Source Code Pro"
-                            font.pixelSize: 13
+                            font.pixelSize: 17
                             font.bold: true
                             text: Math.round(volSlider.value) + "%"
                         }
@@ -464,36 +467,13 @@ PanelWindow {
                                 var ratio = Math.max(0, Math.min(1, mouse.x / width))
                                 var vol = Math.round(ratio * 300)
                                 volSlider.value = vol
-                                volSetProc.command = ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", (vol / 100).toFixed(2)]
-                                volSetProc.running = true
+                                if (volPopup.sink && volPopup.sink.audio)
+                                    volPopup.sink.audio.volume = vol / 100
                             }
                         }
                     }
                 }
 
-                Process {
-                    id: volSetProc
-                }
-
-                Timer {
-                    interval: 200
-                    running: volPopup.visible
-                    repeat: true
-                    triggeredOnStart: true
-                    onTriggered: volReadProc.running = true
-                }
-
-                Process {
-                    id: volReadProc
-                    command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf \"%.0f\", $2*100}'"]
-                    stdout: StdioCollector {
-                        onStreamFinished: {
-                            var val = parseInt(this.text.trim())
-                            if (!isNaN(val) && !volSlider.pressed)
-                                volPopup.currentVol = val
-                        }
-                    }
-                }
             }
 
             RowLayout {
@@ -517,21 +497,16 @@ PanelWindow {
                 }
             }
 
-            Timer {
-                interval: 1000
-                running: true
-                repeat: true
-                triggeredOnStart: true
-                onTriggered: volProc.running = true
+            property var sink: Pipewire.defaultAudioSink
+            property real volPercent: sink && sink.audio ? Math.round(sink.audio.volume * 100) : 0
+            property bool isMuted: sink && sink.audio ? sink.audio.muted : false
+
+            PwObjectTracker {
+                objects: [ Pipewire.defaultAudioSink ]
             }
 
-            Process {
-                id: volProc
-                command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if (/MUTED/) print \"MUTED\"; else printf \"%.0f%%\", $2*100}'"]
-                stdout: StdioCollector {
-                    onStreamFinished: { var out = this.text.trim(); var muted = (out === "MUTED"); volText.text = out; volIcon.text = muted ? "󰖁" : "" }
-                }
-            }
+            Binding { target: volText; property: "text"; value: volModule.isMuted ? "MUTED" : volModule.volPercent + "%" }
+            Binding { target: volIcon; property: "text"; value: volModule.isMuted ? "󰖁" : "" }
         }
 
         // Powerline separator: bg1 -> bg2
