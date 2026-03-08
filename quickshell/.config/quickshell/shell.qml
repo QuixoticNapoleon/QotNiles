@@ -3,6 +3,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 
 PanelWindow {
     id: root
@@ -437,9 +438,177 @@ PanelWindow {
 
         // Date module
         Rectangle {
+            id: dateModule
             color: root.bg2
             Layout.fillHeight: true
             implicitWidth: dateRow.implicitWidth + 16
+
+            property int calMonth: new Date().getMonth()
+            property int calYear: new Date().getFullYear()
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    var now = new Date()
+                    dateModule.calMonth = now.getMonth()
+                    dateModule.calYear = now.getFullYear()
+                    var pos = dateModule.mapToItem(null, 0, 0)
+                    calendarPopup.popupX = pos.x - 40
+                    if (!calendarPopup.visible) {
+                        calendarPopup.visible = true
+                        calendarPopup.showing = true
+                    } else {
+                        calendarPopup.showing = false
+                        calCloseTimer.start()
+                    }
+                }
+            }
+
+            Timer {
+                id: calCloseTimer
+                interval: 160
+                onTriggered: calendarPopup.visible = false
+            }
+
+            PopupWindow {
+                id: calendarPopup
+                anchor.window: root
+                property real popupX: root.width - 400
+                anchor.rect.x: popupX
+                anchor.rect.y: root.height
+                visible: false
+                width: 282
+                height: 322
+                color: "transparent"
+
+                property bool showing: false
+
+                Rectangle {
+                    id: calendarBg
+                    anchors.fill: parent
+                    color: Qt.rgba(0, 0.212, 0.212, 1)
+                    border.color: "#8affff"
+                    border.width: 1
+                    radius: 0
+                    clip: true
+
+                    opacity: calendarPopup.showing ? 1.0 : 0.0
+                    scale: calendarPopup.showing ? 1.0 : 0.95
+                    transformOrigin: Item.Top
+
+                    Behavior on opacity {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+                    Behavior on scale {
+                        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+                    }
+                }
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    anchors.margins: 11
+                    spacing: 8
+
+                    // Month/Year header with navigation
+                    RowLayout {
+                        Layout.fillWidth: true
+
+                        Text {
+                            text: "<"
+                            color: root.fg
+                            font.family: "Source Code Pro"
+                            font.pixelSize: 16
+                            font.bold: true
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    if (dateModule.calMonth === 0) {
+                                        dateModule.calMonth = 11
+                                        dateModule.calYear--
+                                    } else {
+                                        dateModule.calMonth--
+                                    }
+                                }
+                            }
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+                            text: dateModule.calYear + "年" + String(dateModule.calMonth + 1).padStart(2, '0') + "月"
+                            color: "#FFC500"
+                            font.family: "Noto Sans CJK SC"
+                            font.pixelSize: 14
+                            font.bold: true
+                        }
+
+                        Text {
+                            text: ">"
+                            color: root.fg
+                            font.family: "Source Code Pro"
+                            font.pixelSize: 16
+                            font.bold: true
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    if (dateModule.calMonth === 11) {
+                                        dateModule.calMonth = 0
+                                        dateModule.calYear++
+                                    } else {
+                                        dateModule.calMonth++
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Day of week headers
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 0
+
+                        Repeater {
+                            model: ["☉", "☽", "♂", "☿", "♃", "♀", "♄"]
+
+                            Text {
+                                required property string modelData
+                                Layout.fillWidth: true
+                                text: modelData
+                                color: "#FFC500"
+                                font.family: "Source Code Pro"
+                                font.pixelSize: 12
+                                font.bold: true
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+                        }
+                    }
+
+                    // Calendar grid
+                    MonthGrid {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        month: dateModule.calMonth
+                        year: dateModule.calYear
+                        locale: Qt.locale("ja_JP")
+
+                        delegate: Text {
+                            required property var model
+                            property bool isToday: model.day === new Date().getDate() &&
+                                                   model.month === new Date().getMonth() &&
+                                                   model.year === new Date().getFullYear()
+                            property bool isCurrentMonth: model.month === dateModule.calMonth
+
+                            text: model.day
+                            color: isToday ? "#FFC500" : isCurrentMonth ? root.fg : "#4d7f7f"
+                            font.family: "Source Code Pro"
+                            font.pixelSize: 12
+                            font.bold: isToday
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                    }
+                }
+            }
 
             RowLayout {
                 id: dateRow
@@ -459,7 +628,7 @@ PanelWindow {
                     font.family: "Source Code Pro"
                     font.pixelSize: 14
 
-                    property var dayKanji: ["日", "月", "火", "水", "木", "金", "土"]
+                    property var daySymbols: ["☉", "☽", "♂", "☿", "♃", "♀", "♄"]
 
                     Timer {
                         interval: 1000
@@ -471,7 +640,7 @@ PanelWindow {
                             var y = now.getFullYear()
                             var m = String(now.getMonth() + 1).padStart(2, '0')
                             var d = String(now.getDate()).padStart(2, '0')
-                            dateText.text = y + "年" + m + "月" + d + "日 (" + dateText.dayKanji[now.getDay()] + ")"
+                            dateText.text = y + "年" + m + "月" + d + "日 (" + dateText.daySymbols[now.getDay()] + ")"
                         }
                     }
                 }
