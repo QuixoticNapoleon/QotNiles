@@ -1,0 +1,12 @@
+filekinds:
+  directory:
+    foreground: "#00AED6"
+    is_bold: true
+
+  mount_point:
+    foreground: "#94e2d5"
+    is_underline: true
+
+  symlink:
+    foreground: "#00feff"
+    is_underline: true
