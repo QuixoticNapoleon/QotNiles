@@ -68,8 +68,8 @@ export VISUAL="nvim"
 # │ 🏷️  Aliases                                                  │
 # └──────────────────────────────────────────────────────────────┘
 alias ls="eza --icons --group-directories-first"
-alias l='eza -lahg --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
-alias ll='eza -lahg --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
+alias l='eza -laahg --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
+alias ll='eza -laahg --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
 alias vi="nvim"
 alias sudo='sudo '
 alias icat="kitty icat"
