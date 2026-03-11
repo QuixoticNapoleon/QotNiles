@@ -31,8 +31,8 @@
 
     indicate_hidden = yes
 
-    # Transparency (0 = opaque, 100 = fully transparent)
-    transparency = 35
+    # Transparency (X11 only, use alpha channel in background color for Wayland)
+    transparency = 0
 
     separator_height = 2
     padding = 8
@@ -97,21 +97,21 @@
 ### Urgency Sections ###
 
 [urgency_low]
-    background = "#003636"
+    background = "#00363699"
     foreground = "#8affff"
     frame_color = "#E0FFFF"  # very light cyan
     timeout = 5
     # icon = /usr/share/icons/Qogir/16/status/package-installed-outdated.svg
 
 [urgency_normal]
-    background = "#003636"
+    background = "#00363699"
     foreground = "#8affff"
     frame_color = "#8affff"
     timeout = 5
     # icon = /usr/share/icons/Qogir/16/emblems/emblem-question.svg
 
 [urgency_critical]
-    background = "#003636"
+    background = "#00363699"
     foreground = "#8affff"
     frame_color = "#ff7f7f"  # same red as your previous file
     timeout = 120
