@@ -66,19 +66,29 @@ PanelWindow {
 		spacing: 12
 
 		Repeater {
-			model: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "󱉼"]
+			model: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "ᚨ", "ᚠ"]
 
-			Text {
+			Item {
 				required property int index
 				required property string modelData
 				property int wsId: index + 1
 				property string state: wsState(wsId)
 
-				text: modelData
-				color: state === "focused" ? "#FFC500" : state === "occupied" ? "#8affff" : "#4d7f7f"
-				font.family: "Noto Sans CJK SC"
-				font.pixelSize: 13
-				font.bold: state === "focused"
+				width: wsLabel.implicitWidth
+				height: wsLabel.implicitHeight
+
+				Text {
+					id: wsLabel
+					anchors.horizontalCenter: parent.horizontalCenter
+					anchors.verticalCenter: parent.verticalCenter
+					anchors.verticalCenterOffset: parent.wsId >= 11 ? 4 : 0
+
+					text: parent.modelData
+					color: parent.state === "focused" ? "#FFC500" : parent.state === "occupied" ? "#8affff" : "#4d7f7f"
+					font.family: parent.wsId >= 11 ? "Junicode" : "Noto Sans CJK SC"
+					font.pixelSize: parent.wsId >= 11 ? 17 : 13
+					font.bold: parent.state === "focused"
+				}
 
 				MouseArea {
 					anchors.fill: parent
