@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# How much to zoom in
+ZOOM="+12"
+
+# Store current font size
+# ORIG_SIZE=$(kitty @ get-font-size)
+
+# Zoom in
+kitty @ set-font-size "$ZOOM"
+
+# Restore on exit
+restore_font() {
+	# kitty @ set-font-size "$ORIG_SIZE"
+	kitty @ set-font-size 10.5
+}
+trap restore_font EXIT
+
+# Run tt
+tt -notheme
