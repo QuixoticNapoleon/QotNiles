@@ -1,3 +1,27 @@
 mpd/.config/mpd/log
 mpd/.config/mpd/pid
 mpd/.config/mpd/state
+
+# opencode - dependencies
+opencode/.config/opencode/node_modules/
+
+# opencode - local env/config
+opencode/.config/opencode/.env
+opencode/.config/opencode/.env.*
+
+# opencode - logs
+opencode/.config/opencode/*.log
+opencode/.config/opencode/npm-debug.log*
+opencode/.config/opencode/yarn-debug.log*
+opencode/.config/opencode/yarn-error.log*
+opencode/.config/opencode/pnpm-debug.log*
+
+# opencode - build output / cache
+opencode/.config/opencode/dist/
+opencode/.config/opencode/build/
+opencode/.config/opencode/.cache/
+opencode/.config/opencode/coverage/
+
+# opencode - OS/editor noise
+opencode/.config/opencode/.DS_Store
+opencode/.config/opencode/Thumbs.db
