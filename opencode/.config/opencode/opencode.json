@@ -1,0 +1,13 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+	"plugin": ["opencode-gemini-auth@latest"],
+
+	"agent": {
+		"build": {
+			"color": "#FFD500"
+		},
+		"plan": {
+			"color": "#8affff"
+		},
+	},
+}
