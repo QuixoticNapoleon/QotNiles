@@ -9,5 +9,11 @@
 		"plan": {
 			"color": "#8affff"
 		},
+		"ask": {
+			"color": "#00E6A9"
+		},
+		"test": {
+			"color": "#D38CFF"
+		},
 	},
 }
