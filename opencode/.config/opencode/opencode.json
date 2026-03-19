@@ -3,6 +3,9 @@
 	"plugin": ["opencode-gemini-auth@latest"],
 
 	"agent": {
+		"hack": {
+			"color": "#F07178"
+		},
 		"build": {
 			"color": "#FFD500"
 		},
