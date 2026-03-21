@@ -2,7 +2,7 @@
 
 :root {
 	/* APP ELEMENTS */
-	--app-bg: none;
+	--app-bg: rgba(0, 54, 54, 0.3);
 	--app-blur: 6px;
 	--app-margin: 24px;
 	--app-radius: 8px;
@@ -75,4 +75,9 @@
 		--background-modifier-hover: hsl(0,0%,100%,0.075);
 		--background-modifier-selected: hsl(0,0%,100%,0.125);
     }
+}
+
+.visual-refresh [class^="winButtons_"],
+.visual-refresh [class*=" winButtons_"] {
+	display: none !important;
 }
