@@ -19,9 +19,10 @@
 	--main-content-color: hsl(0,0%,0%,0.2);
 
 	/* MESSAGE SETTINGS */
-	--message-color: hsl(0,0%,0%,0.4);
+	--message-color: transparent;
+	--message-color-hover: rgba(0, 32, 32, 0.6);
 	--message-radius: 8px;
-	--message-padding-top: 8px;
+	--message-padding-top: 2px;
 	--message-padding-side: 8px;
 
 	/* REPLY HSL COLOR SETTINGS */
@@ -53,7 +54,8 @@
     .visual-refresh .theme-dark,
     .visual-refresh.theme-dark {
 		/* TEXT COLOR SETTINGS */
-		--text-primary: hsl(0,0%,100%);
+		--text-primary: #8affff;
+		--text-normal: #8affff;
 		--text-secondary: hsl(0,0%,77%);
 
 		/* CHANNEL COLOR SETTINGS */
@@ -80,4 +82,11 @@
 .visual-refresh [class^="winButtons_"],
 .visual-refresh [class*=" winButtons_"] {
 	display: none !important;
+}
+
+.visual-refresh [class^="messageContent_"],
+.visual-refresh [class*=" messageContent_"],
+.visual-refresh [class^="markup_"],
+.visual-refresh [class*=" markup_"] {
+	color: #8affff !important;
 }
