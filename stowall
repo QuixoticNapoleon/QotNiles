@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES_DIR="${1:-$HOME/Dotfiles}"
+
+cd "$DOTFILES_DIR"
+
+for pkg in *; do
+	[[ "$pkg" == "system" ]] && continue
+	[[ -d "$pkg" ]] || continue
+	stow -d "$DOTFILES_DIR" -t "$HOME" "$pkg"
+done
+
+if [[ -d system ]]; then
+	for pkg in system/*; do
+		[[ -d "$pkg" ]] || continue
+		sudo stow -d "$DOTFILES_DIR/system" -t / "$(basename "$pkg")"
+	done
+fi
