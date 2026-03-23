@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Install paru on Arch-based systems, then clean cache.
+
+if [[ "$(id -u)" -eq 0 ]]; then
+	echo "Please run this script as a normal user, not root."
+	exit 1
+fi
+
+if ! command -v pacman >/dev/null 2>&1; then
+	echo "This script requires pacman. Are you on Arch or an Arch-based distro?"
+	exit 1
+fi
+
+if command -v paru >/dev/null 2>&1; then
+	echo "paru is already installed."
+else
+	echo "Installing required packages..."
+	sudo pacman -S --needed --noconfirm base-devel git
+
+	tmpdir="$(mktemp -d)"
+	trap 'rm -rf "$tmpdir"' EXIT
+
+	echo "Cloning paru into $tmpdir..."
+	git clone https://aur.archlinux.org/paru.git "$tmpdir/paru"
+
+	cd "$tmpdir/paru"
+
+	echo "Building and installing paru..."
+	makepkg -si --noconfirm
+fi
+
+echo "Cleaning paru cache..."
+paru -Scc --noconfirm || true
+
+echo "Done."
+
+packages=(
+	llama.cpp
+	ledger-live
+	orca-slicer
+	tidal-hifi-bin
+	dropbox
+)
+
+paru -S --needed "${packages[@]}"
