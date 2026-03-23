@@ -1,8 +1,61 @@
-./install
-./aur
-./aetherfox
+#!/usr/bin/env bash
+set -euo pipefail
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sh -c "$(curl -sS https://vencord.dev/install.sh)"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 
-./stowall
+noninteractive=0
+install_ohmyzsh=0
+install_vencord=0
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		--noconfirm)
+			noninteractive=1
+			shift
+			;;
+		--with-ohmyzsh)
+			install_ohmyzsh=1
+			shift
+			;;
+		--with-vencord)
+			install_vencord=1
+			shift
+			;;
+		*)
+			echo "Unknown argument: $1" >&2
+			echo "Usage: $0 [--noconfirm] [--with-ohmyzsh] [--with-vencord]" >&2
+			exit 1
+			;;
+	esac
+done
+
+if [[ "$noninteractive" -eq 1 ]]; then
+	"$SCRIPT_DIR/install" --noconfirm
+	"$SCRIPT_DIR/aur" --noconfirm
+else
+	"$SCRIPT_DIR/install"
+	"$SCRIPT_DIR/aur"
+fi
+
+"$SCRIPT_DIR/aetherfox"
+
+if [[ "$install_ohmyzsh" -eq 1 ]]; then
+	if [[ -d "$HOME/.oh-my-zsh" ]]; then
+		echo "oh-my-zsh already installed at $HOME/.oh-my-zsh"
+	else
+		echo "Installing oh-my-zsh via git clone..."
+		git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+	fi
+fi
+
+if [[ "$install_vencord" -eq 1 ]]; then
+	tmp_script="$(mktemp)"
+	trap 'rm -f "$tmp_script"' EXIT
+	
+	echo "Fetching Vencord installer script..."
+	curl -fsSL https://vencord.dev/install.sh -o "$tmp_script"
+	sh "$tmp_script"
+fi
+
+"$SCRIPT_DIR/stowall" "$DOTFILES_DIR"
