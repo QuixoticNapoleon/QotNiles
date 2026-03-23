@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v pacman >/dev/null 2>&1; then
+	echo "This script requires pacman (Arch/Arch-based distro)." >&2
+	exit 1
+fi
+
+if [[ "${1:-}" == "--noconfirm" ]]; then
+	pacman_flags=(--needed --noconfirm)
+else
+	pacman_flags=(--needed)
+fi
 
 packages=(
 	# Base
@@ -197,4 +209,4 @@ packages=(
 	rmpc
 )
 
-sudo pacman -S --needed "${packages[@]}"
+sudo pacman -S "${pacman_flags[@]}" "${packages[@]}"

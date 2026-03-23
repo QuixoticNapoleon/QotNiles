@@ -8,6 +8,12 @@ if [[ "$(id -u)" -eq 0 ]]; then
 	exit 1
 fi
 
+if [[ "${1:-}" == "--noconfirm" ]]; then
+	confirm_flags=(--noconfirm)
+else
+	confirm_flags=()
+fi
+
 if ! command -v pacman >/dev/null 2>&1; then
 	echo "This script requires pacman. Are you on Arch or an Arch-based distro?"
 	exit 1
@@ -17,7 +23,7 @@ if command -v paru >/dev/null 2>&1; then
 	echo "paru is already installed."
 else
 	echo "Installing required packages..."
-	sudo pacman -S --needed --noconfirm base-devel git
+	sudo pacman -S --needed "${confirm_flags[@]}" base-devel git
 
 	tmpdir="$(mktemp -d)"
 	trap 'rm -rf "$tmpdir"' EXIT
@@ -28,11 +34,11 @@ else
 	cd "$tmpdir/paru"
 
 	echo "Building and installing paru..."
-	makepkg -si --noconfirm
+	makepkg -si "${confirm_flags[@]}"
 fi
 
 echo "Cleaning paru cache..."
-paru -Scc --noconfirm || true
+paru -Scc "${confirm_flags[@]}" || true
 
 echo "Done."
 
@@ -44,4 +50,4 @@ packages=(
 	dropbox
 )
 
-paru -S --needed "${packages[@]}"
+paru -S --needed "${confirm_flags[@]}" "${packages[@]}"
