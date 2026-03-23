@@ -52,7 +52,6 @@ packages=(
 	audacity
 	gimp
 	blender
-	dropbox-cli
 	flatpak
 	thunar
 
@@ -75,7 +74,7 @@ packages=(
 	zoxide
 	yazi
 	tmux
-	aria2c
+	aria2
 	jq
 	perl-rename
 	lftp
@@ -95,6 +94,13 @@ packages=(
 	ly
 	wl-clipboard
 	cliphist
+
+	# Backup Desktop
+	bspwm
+	sxhkd 
+	polybar
+	feh
+	xorg
 
 	# Drivers
 	bluez
@@ -158,7 +164,7 @@ packages=(
 	ttf-monoid-nerd
 	ttf-mononoki-nerd
 	ttf-mplus-nerd
-	ttf-nanumgothic_coding
+	# ttf-nanumgothic_coding
 	ttf-nerd-fonts-symbols
 	ttf-nerd-fonts-symbols-mono
 	ttf-noto-nerd
@@ -180,7 +186,9 @@ packages=(
 	# Music
 	reaper
 	timidity++
-	
+	mpd
+	mpc
+	rmpc
 )
 
 sudo pacman -S --needed "${packages[@]}"
