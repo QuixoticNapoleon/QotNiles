@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+NVIM_DIR="${HOME}/.config/nvim"
+EMACS_DIR="${HOME}/.config/emacs"
+
+clone_repo() {
+	local repo_url="$1"
+	local target_dir="$2"
+
+	mkdir -p "$(dirname "$target_dir")"
+
+	if [[ -d "$target_dir" ]]; then
+		if [[ -d "$target_dir/.git" ]]; then
+			echo "Skipping $target_dir (already a git repo)."
+			return 0
+		fi
+
+		if [[ -n "$(ls -A "$target_dir")" ]]; then
+			echo "Refusing to clone into non-empty directory: $target_dir" >&2
+			return 1
+		fi
+	fi
+
+	echo "Cloning $repo_url into $target_dir"
+	git clone "$repo_url" "$target_dir"
+}
+
+clone_repo "https://github.com/QuixoticNapoleon/QuixoticNeovim" "$NVIM_DIR"
+clone_repo "https://github.com/QuixoticNapoleon/NapoleonMacs" "$EMACS_DIR"
+
+echo "Editor configs installed."

@@ -39,6 +39,7 @@ else
 fi
 
 "$SCRIPT_DIR/aetherfox"
+"$SCRIPT_DIR/editor"
 
 if [[ "$install_ohmyzsh" -eq 1 ]]; then
 	if [[ -d "$HOME/.oh-my-zsh" ]]; then
