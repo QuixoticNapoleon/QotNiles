@@ -1,0 +1,8 @@
+./install
+./aur
+./aetherfox
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -sS https://vencord.dev/install.sh)"
+
+./stowall
