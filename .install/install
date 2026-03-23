@@ -10,6 +10,10 @@ packages=(
 	networkmanager
 	grub
 	pipewire
+	sudo
+	cryptsetup
+	lvm2
+	efibootmgr
 
 	# Disk
 	btrfs-progs
@@ -67,6 +71,7 @@ packages=(
 	mpv
 	ripgrep
 	fd
+	wget
 	bat
 	ffmpeg
 	qemu-full
@@ -82,6 +87,7 @@ packages=(
 	slurp
 	tcc
 	tor
+	trash-cli
 
 	# Desktop
 	hyprland
