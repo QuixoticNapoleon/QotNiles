@@ -23,13 +23,14 @@ packages=(
 	grub
 	pipewire
 	sudo
-	cryptsetup
-	lvm2
-	efibootmgr
 
 	# Disk
 	btrfs-progs
+	cryptsetup
+	lvm2
+	efibootmgr
 	snapper
+	gdu
 
 	# Terminal
 	zsh
