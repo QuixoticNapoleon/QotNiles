@@ -85,7 +85,7 @@ alias sudo='sudo '
 alias icat="kitty icat"
 alias py="python"
 alias rename="perl-rename"
-alias tt="~/Zsh/tt"
+alias tt="~/Scripts/tt"
 
 # ┌──────────────────────────────────────────────────────────────┐
 # │ 🎯 Prompt                                                    │
