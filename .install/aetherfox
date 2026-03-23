@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FIREFOX_DIR="${HOME}/.mozilla/firefox"
+REPO_URL="https://github.com/QuixoticNapoleon/AetherFox"
+
+if [[ ! -d "$FIREFOX_DIR" ]]; then
+    echo "Firefox profile directory not found: $FIREFOX_DIR" >&2
+    exit 1
+fi
+
+profile_dir=""
+
+shopt -s nullglob
+profiles=( "$FIREFOX_DIR"/*.default-release )
+shopt -u nullglob
+
+if (( ${#profiles[@]} == 0 )); then
+    echo "No Firefox .default-release profile found in $FIREFOX_DIR" >&2
+    exit 1
+fi
+
+profile_dir="${profiles[0]}"
+chrome_dir="${profile_dir}/chrome"
+
+mkdir -p "$chrome_dir"
+
+if [[ -d "$chrome_dir/.git" ]]; then
+    echo "Git repository already exists in: $chrome_dir"
+    exit 0
+fi
+
+echo "No git repository found in: $chrome_dir"
+echo "Removing existing contents..."
+
+find "$chrome_dir" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+
+echo "Cloning AetherFox into: $chrome_dir"
+git clone "$REPO_URL" "$chrome_dir"
+
+echo "Done."
