@@ -48,6 +48,7 @@ packages=(
 	orca-slicer
 	tidal-hifi-bin
 	dropbox
+	localsend
 )
 
 paru -S --needed "${confirm_flags[@]}" "${packages[@]}"
