@@ -17,4 +17,4 @@ restore_font() {
 trap restore_font EXIT
 
 # Run tt
-~/Zsh/tt.elf -notheme
+~/Scripts/tt.elf -notheme
