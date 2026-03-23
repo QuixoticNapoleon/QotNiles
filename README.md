@@ -8,6 +8,6 @@ Personal dotfiles.
 
 ## Screenshots
 
-![](.media/hyprland_1.png)
+![](.assets/README/hyprland_1.png)
 
-![](.media/hyprland_2.png)
+![](.assets/README/hyprland_2.png)
