@@ -43,12 +43,14 @@ paru -Scc "${confirm_flags[@]}" || true
 echo "Done."
 
 packages=(
+	traur
 	llama.cpp
 	ledger-live
 	orca-slicer
 	tidal-hifi-bin
 	dropbox
 	localsend
+	davinci-resolve
 )
 
 paru -S --needed "${confirm_flags[@]}" "${packages[@]}"
