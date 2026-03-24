@@ -6,6 +6,7 @@ mpd/.config/mpd/state
 opencode/.config/opencode/node_modules/
 opencode/.config/opencode/package.json
 opencode/.config/opencode/bun.lock
+opencode/.config/opencode/antigravity-accounts.json
 
 # opencode - local env/config
 opencode/.config/opencode/.env
