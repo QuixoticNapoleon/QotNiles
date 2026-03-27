@@ -127,11 +127,11 @@ packages=(
 	cliphist
 
 	# Backup Desktop
-	bspwm
-	sxhkd 
-	polybar
-	feh
-	xorg
+	# bspwm
+	# sxhkd 
+	# polybar
+	# feh
+	# xorg
 
 	# Drivers
 	bluez
