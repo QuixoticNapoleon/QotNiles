@@ -51,7 +51,8 @@ listview {
 /* Element - minimal height (no vertical padding) */
 element {
     border:      0;
-    padding:     -1px 3px;        /* No vertical padding: 0px top/bottom, 3px left/right, negative if you want it to be thin */
+    padding:     1px;
+    spacing:     0;
 }
 
 /* Icon configuration for images */

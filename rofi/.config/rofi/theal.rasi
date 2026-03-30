@@ -62,7 +62,8 @@ listview {
 }
 element {
     border:  0;
-    padding: 1px ;
+    padding: 1px;
+    spacing: 0;
 }
 element-text {
     background-color: inherit;
@@ -70,6 +71,7 @@ element-text {
 }
 element-icon {
     background-color: inherit;
+    padding:          0 6px 0 0;
 }
 element-text selected {
     text-transform:   bold;
