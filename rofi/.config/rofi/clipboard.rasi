@@ -56,14 +56,19 @@ element {
 
 /* Icon configuration for images */
 element-icon {
+    background-color: inherit;
     size:    2em;                /* Good size for image thumbnails */
     padding: 0 6px 0 0;          /* Space between icon and text */
 }
 
 element-text {
     background-color: inherit;
+    highlight:        bold underline;
     text-color:       inherit;
     vertical-align:   0.5;
+}
+element-text selected {
+    text-transform:   none;
 }
 
 /* Element states */

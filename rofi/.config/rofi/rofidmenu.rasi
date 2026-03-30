@@ -57,7 +57,11 @@ element {
 }
 element-text {
     background-color: inherit;
+    highlight:        bold underline;
     text-color:       inherit;
+}
+element-text selected {
+    text-transform:   none;
 }
 element.normal.normal {
     background-color: @normal-background;
