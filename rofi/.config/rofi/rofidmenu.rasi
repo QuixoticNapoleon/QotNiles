@@ -54,6 +54,7 @@ listview {
 element {
     border:  0;
     padding: 1px;
+    spacing: 0;
 }
 element-text {
     background-color: inherit;
