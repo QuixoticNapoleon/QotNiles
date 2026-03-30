@@ -10,3 +10,7 @@ filekinds:
   symlink:
     foreground: "#00feff"
     is_underline: true
+
+punctuation:
+  foreground: "#00AED6"
+  is_dimmed: false
