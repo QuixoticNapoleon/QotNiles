@@ -21,17 +21,17 @@
     alternate-normal-foreground: @foreground;
     normal-background:           rgba(45, 48, 59, 1%);
     lightfg:                     rgba(88, 104, 117, 100%);
-    selected-normal-background:  rgba(17, 43, 43, 30%);     /* #112b2b at 30% */
+    selected-normal-background:  rgba(17, 43, 43, 20%);     /* #112b2b at 20% */
     border-color:                rgba(124, 131, 137, 100%);
     spacing:                     2;
     separatorcolor:              rgba(45, 48, 59, 1%);
     urgent-background:           rgba(45, 48, 59, 15%);
-    selected-urgent-background:  rgba(17, 43, 43, 30%);     /* #112b2b at 30% */
+    selected-urgent-background:  rgba(17, 43, 43, 20%);     /* #112b2b at 20% */
     alternate-urgent-foreground: @urgent-foreground;
     background-color:            rgba(0, 0, 0, 0%);
     alternate-active-foreground: @active-foreground;
     active-background:           rgba(29, 31, 33, 17%);
-    selected-active-background:  rgba(17, 43, 43, 30%);     /* #112b2b at 30% */
+    selected-active-background:  rgba(17, 43, 43, 20%);     /* #112b2b at 20% */
 }
 
 
