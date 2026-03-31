@@ -89,6 +89,7 @@ alias icat="kitty icat"
 alias py="python"
 alias rename="perl-rename"
 alias tt="~/Scripts/tt"
+alias vimv="~/Scripts/vimv"
 
 # ┌──────────────────────────────────────────────────────────────┐
 # │ 🎯 Prompt                                                    │
