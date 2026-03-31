@@ -54,7 +54,7 @@ unset LS_COLORS #unset ls colors
 # │ 🔍 FZF                                                       │
 # └──────────────────────────────────────────────────────────────┘
 source <(fzf --zsh)
-export FZF_DEFAULT_OPTS="--color=fg+:#8affff,bg+:#225859,header:#FFC600,info:#FFC600,pointer:#8affff,marker:#8affff,prompt:#ffC600,spinner:#FFC600,query:#8affff,hl:#FFC600,hl+:#FFC600"
+export FZF_DEFAULT_OPTS="--color=fg+:#8affff,bg+:#225859,header:#FFC600,info:#FFC600,pointer:#8affff,marker:#8affff,prompt:#ffC600,spinner:#FFC600,query:#8affff,hl:#FFC600,hl+:#FFC600,border:#00b4b4"
 
 # ┌──────────────────────────────────────────────────────────────┐
 # │ 📂 Zoxide                                                    │
