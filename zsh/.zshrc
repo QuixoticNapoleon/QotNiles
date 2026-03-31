@@ -100,7 +100,12 @@ takedir() {
 	elif [[ $# -ge 2 ]]; then
 		local dest="${@:$#}"
 		mkdir -p "$dest"
-		mv "${@:1:$#-1}" "$dest"
+		local abs_dest srcs=() src
+		abs_dest=$(realpath "$dest")
+		for src in "${@:1:$#-1}"; do
+			[[ "$(realpath "$src" 2>/dev/null)" != "$abs_dest" ]] && srcs+=("$src")
+		done
+		[[ ${#srcs[@]} -gt 0 ]] && mv "${srcs[@]}" "$dest"
 		cd "$dest"
 	else
 		echo "usage: take <dir> OR take <sources...> <destdir>"
