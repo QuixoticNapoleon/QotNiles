@@ -112,6 +112,10 @@ packages=(
 	tor
 	trash-cli
 	clamav
+	delta
+	atuin
+	hyperfine
+	direnv
 	imagemagick
 
 	# Desktop
