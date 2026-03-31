@@ -88,7 +88,6 @@ alias sudo='sudo '
 alias icat="kitty icat"
 alias py="python"
 alias rename="perl-rename"
-alias tt="~/Scripts/tt"
 alias vimv="~/Scripts/vimv"
 
 # ┌──────────────────────────────────────────────────────────────┐
@@ -112,6 +111,13 @@ takedir() {
 		return 1
 	fi
 }
+
+tt() {
+	kitty @ set-font-size +12
+	~/Scripts/tt -notheme
+	kitty @ set-font-size 10.5
+}
+
 
 # ┌──────────────────────────────────────────────────────────────┐
 # │ 🎯 Prompt                                                    │
