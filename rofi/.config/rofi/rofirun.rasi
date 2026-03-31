@@ -1,0 +1,49 @@
+/*******************************************************
+ * RUN LAUNCHER - thin horizontal bar
+ *******************************************************/
+
+configuration {
+    font:                "Noto Sans Nerd Font 10";
+    show-icons:          false;
+    display-run:         "";
+    disable-history:     false;
+    kb-cancel:           "Super+c";
+}
+
+@import "~/.config/rofi/config.rasi"
+
+window {
+    background-color: @background;
+    border:           1px;
+    border-color:     #19e0e0;
+    padding:          8px 16px;
+    width:            40%;
+    anchor:           center;
+    location:         center;
+}
+mainbox {
+    border:   0;
+    padding:  0;
+    children: [ inputbar ];
+}
+inputbar {
+    spacing:    0;
+    text-color: @normal-foreground;
+    padding:    2px;
+    children:   [ prompt,textbox-prompt-colon,entry ];
+}
+prompt {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+textbox-prompt-colon {
+    expand:     false;
+    str:        ">";
+    margin:     0px 0.5em 0em 0em;
+    text-color:    #FFC600;
+    text-transform: bold;
+}
+entry {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
