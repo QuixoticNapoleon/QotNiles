@@ -92,6 +92,23 @@ alias tt="~/Scripts/tt"
 alias vimv="~/Scripts/vimv"
 
 # ┌──────────────────────────────────────────────────────────────┐
+# │ ⚙️  Functions
+# └──────────────────────────────────────────────────────────────┘
+takedir() {
+	if [[ $# -eq 1 ]]; then
+		mkdir -p "$1" && cd "$1"
+	elif [[ $# -ge 2 ]]; then
+		local dest="${@:$#}"
+		mkdir -p "$dest"
+		mv "${@:1:$#-1}" "$dest"
+		cd "$dest"
+	else
+		echo "usage: take <dir> OR take <sources...> <destdir>"
+		return 1
+	fi
+}
+
+# ┌──────────────────────────────────────────────────────────────┐
 # │ 🎯 Prompt                                                    │
 # └──────────────────────────────────────────────────────────────┘
 # To customize, run `p10k configure` or edit ~/.p10k.zsh
