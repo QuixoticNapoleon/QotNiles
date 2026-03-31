@@ -89,6 +89,7 @@ alias icat="kitty icat"
 alias py="python"
 alias rename="perl-rename"
 alias vimv="~/Scripts/vimv"
+alias fetch="fastfetch"
 
 # ┌──────────────────────────────────────────────────────────────┐
 # │ ⚙️  Functions
