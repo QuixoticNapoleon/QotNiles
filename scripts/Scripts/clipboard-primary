@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+tmp_dir="/tmp/cliphist-rofi-primary"
+db_path="$HOME/.cache/cliphist/primary.db"
+
+clipboard_mode() {
+	if [ "$ROFI_RETV" = "0" ]; then
+		rm -rf "$tmp_dir"
+		mkdir -p "$tmp_dir"
+
+		cliphist -db-path "$db_path" list | while IFS=$'\t' read -r id content; do
+			if [[ "$content" == *"[[ binary data"* ]]; then
+				ext="png"
+
+				if [[ "$content" =~ image/(jpeg|jpg|png|bmp|gif|webp) ]]; then
+					ext="${BASH_REMATCH[1]}"
+				fi
+
+				if [[ "$ext" == "jpeg" ]]; then
+					ext="jpg"
+				fi
+
+				imgfile="$tmp_dir/$id.$ext"
+				printf '%s' "$id" | cliphist -db-path "$db_path" decode > "$imgfile"
+				printf '󰋩 IMAGE: %s\0icon\x1fthumbnail://%s\0info\x1f%s\n' "$id" "$imgfile" "$id"
+			else
+				printf '%s\0info\x1f%s\n' "$content" "$id"
+			fi
+		done
+	else
+		printf '%s' "$ROFI_INFO" | cliphist -db-path "$db_path" decode | wl-copy --primary
+		exit 0
+	fi
+}
+
+export -f clipboard_mode
+
+if [ -z "$ROFI_RETV" ]; then
+	rofi -modi "clipboard:$0" \
+	     -show clipboard \
+	     -show-icons \
+	     -theme ~/.config/rofi/clipboard.rasi
+else
+	clipboard_mode "$@"
+fi
