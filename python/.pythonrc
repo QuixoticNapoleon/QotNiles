@@ -1,0 +1,9 @@
+import sys
+
+# 24-bit ANSI colours
+gold = "\001\033[38;2;255;197;0m\002"    # #FFC500
+blue = "\001\033[38;2;47;93;134m\002"    # #2F5D86
+reset = "\001\033[0m\002"
+
+sys.ps1 = f"{gold} >> {reset}"
+sys.ps2 = f"{blue}... {reset}"
