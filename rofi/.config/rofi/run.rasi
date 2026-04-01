@@ -5,7 +5,6 @@
 configuration {
     font:                "Noto Sans Nerd Font 10";
     show-icons:          false;
-    display-run:         "";
     disable-history:     false;
     kb-cancel:           "Super+c";
 }
