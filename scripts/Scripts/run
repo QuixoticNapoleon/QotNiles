@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-rofi -show run -theme ~/.config/rofi/rofirun.rasi
+cmd=$(echo "" | rofi -dmenu -theme ~/.config/rofi/run.rasi -p "")
+if [ -n "$cmd" ]; then
+	coproc ( eval "$cmd" > /dev/null 2>&1 )
+fi
