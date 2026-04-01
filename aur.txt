@@ -1,0 +1,8 @@
+traur
+llama.cpp
+ledger-live
+orca-slicer
+tidal-hifi-bin
+filen-cli-bin
+localsend
+davinci-resolve
