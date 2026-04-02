@@ -120,7 +120,7 @@ takedir() {
 
 tt() {
 	kitty @ set-font-size +12
-	~/Scripts/tt -notheme
+	jq -r '.[] | .[0]' ~/Text/words.json | shuf -n 50 | ~/Scripts/tt -notheme
 	kitty @ set-font-size 10.5
 }
 
