@@ -138,3 +138,4 @@ tt() {
 # │ 📦 PATH                                                      │
 # └──────────────────────────────────────────────────────────────┘
 export PATH="$PATH:/home/bh/.local/bin"
+export PATH="$HOME/.npm-global/bin:$PATH"
