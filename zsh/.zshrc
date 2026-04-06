@@ -87,6 +87,9 @@ alias ls="eza --icons --group-directories-first"
 alias l='eza -laahg --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
 alias ll='eza -laahg --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
 alias tree='eza --tree --icons --group-directories-first --time-style="+%d %b %Y %H:%M:%S"'
+# Compiler
+alias cc="clang"
+alias c++="clang++"
 # Other Commands
 alias vi="nvim"
 alias sudo='sudo '
