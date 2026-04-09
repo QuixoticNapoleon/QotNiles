@@ -102,6 +102,7 @@ atuin
 hyperfine
 direnv
 imagemagick
+plocate
 
 # Desktop
 hyprland
