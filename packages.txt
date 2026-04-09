@@ -104,6 +104,11 @@ direnv
 imagemagick
 plocate
 
+# Misc
+fortune-mod
+cowsay
+lolcat
+
 # Desktop
 hyprland
 hyprpaper
