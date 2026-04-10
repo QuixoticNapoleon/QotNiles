@@ -6,3 +6,4 @@ tidal-hifi-bin
 filen-cli-bin
 localsend
 davinci-resolve
+rr-bin

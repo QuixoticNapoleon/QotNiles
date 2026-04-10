@@ -41,6 +41,9 @@ texlive
 julia
 nginx
 nasm
+gdb
+lldb
+valgrind
 
 # Apps
 firefox
