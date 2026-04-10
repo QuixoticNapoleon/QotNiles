@@ -20,6 +20,12 @@ ddrescue
 photorec
 testdisk
 
+# Sound
+wireplumber
+pipewire-pulse
+pipewire-alsa
+pipewire-jack
+
 # Terminal
 zsh
 kitty
@@ -142,6 +148,7 @@ lib32-nvidia-utils
 nvidia-settings
 opencl-nvidia
 cuda
+
 
 # Fonts
 adobe-source-code-pro-fonts
