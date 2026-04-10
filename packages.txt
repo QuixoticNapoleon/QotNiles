@@ -106,6 +106,8 @@ hyperfine
 direnv
 imagemagick
 plocate
+zstd
+age
 
 # Misc
 fortune-mod
