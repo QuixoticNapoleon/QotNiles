@@ -19,6 +19,9 @@ gdu
 ddrescue
 photorec
 testdisk
+bees
+duperemove
+compsize
 
 # Sound
 wireplumber
@@ -36,6 +39,7 @@ base-devel
 cmake
 ninja
 clang
+gcc
 rust
 go
 zig
