@@ -98,6 +98,7 @@ alias py="python"
 alias rename="perl-rename"
 alias vimv="~/Scripts/vimv"
 alias fetch="fastfetch"
+alias llm="opencode run"
 
 # ┌──────────────────────────────────────────────────────────────┐
 # │ ⚙️  Functions
