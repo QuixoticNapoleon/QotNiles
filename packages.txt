@@ -116,6 +116,7 @@ hyperfine
 direnv
 imagemagick
 plocate
+pandoc
 zstd
 age
 
