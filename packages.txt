@@ -122,6 +122,8 @@ plocate
 pandoc
 zstd
 age
+binutils
+xxd
 
 # Misc
 fortune-mod
