@@ -14,7 +14,10 @@ btrfs-progs
 cryptsetup
 lvm2
 efibootmgr
-snapper
+# snapper
+btrbk
+snap-pac
+grub-btrfs
 gdu
 ddrescue
 photorec
