@@ -124,6 +124,7 @@ zstd
 age
 binutils
 xxd
+exiftool
 
 # Misc
 fortune-mod
