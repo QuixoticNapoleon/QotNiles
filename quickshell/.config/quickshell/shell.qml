@@ -62,6 +62,7 @@ PanelWindow {
 	// ║  🏢  CENTER: WORKSPACES                                      ║
 	// ╚══════════════════════════════════════════════════════════════╝
 	RowLayout {
+		id: workspacesRow
 		anchors.centerIn: parent
 		spacing: 12
 
@@ -257,6 +258,7 @@ PanelWindow {
 
 		// ── 🪟 Window Title ───────────────────────────────────────
 		Rectangle {
+			id: windowModule
 			color: root.bg2
 			Layout.fillHeight: true
 			implicitWidth: windowRow.implicitWidth + 16
@@ -278,11 +280,9 @@ PanelWindow {
 					color: root.fg
 					font.family: "Source Code Pro"
 					font.pixelSize: 14
-					text: {
-						var title = Hyprland.activeToplevel?.title ?? ""
-						if (title.length > 50) return title.substring(0, 47) + "..."
-						return title
-					}
+					property string fullTitle: Hyprland.activeToplevel?.title ?? ""
+					property int maxChars: Math.max(5, Math.floor((workspacesRow.x - windowModule.x - 80) / 8))
+					text: fullTitle.length > maxChars ? fullTitle.substring(0, maxChars - 3) + "..." : fullTitle
 				}
 			}
 		}
