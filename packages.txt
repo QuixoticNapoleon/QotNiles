@@ -43,6 +43,7 @@ cmake
 ninja
 clang
 gcc
+musl
 rust
 go
 zig
