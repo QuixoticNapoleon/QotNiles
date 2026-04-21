@@ -57,7 +57,7 @@ polybar & # Opens Status Bar
 # feh --bg-fill /home/bh/Pictures/Wallpapers/BlueMountain.jpg & # Wallpaper
 # feh --bg-fill /home/bh/Pictures/Wallpapers/CloudyBluishMountain.jpg & # Wallpaper
 # feh --bg-fill /home/bh/Pictures/Wallpapers/TealNebula.jpg & # Wallpaper
-feh --bg-fill /home/bh/Dotfiles/.assets/Wallpapers/TealNebula.jpg & # Wallpaper
+feh --bg-fill /home/bh/.dotfiles/.assets/Wallpapers/TealNebula.jxl & # Wallpaper
 
 
 
