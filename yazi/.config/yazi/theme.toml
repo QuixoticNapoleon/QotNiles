@@ -6,8 +6,8 @@ cwd            = { fg = "#94e2d5" }   # current working directory color
 #preview_hovered = { fg = "#FFFFFF", bg = "#395e5e" }
 #hovered        = { bg = "#003637" }
 #preview_hovered = { bg = "#003637" }
-hovered        = { fg = "#FFFFFF", bg = "#008282" }
-preview_hovered        = { fg = "#FFFFFF", bg = "#008282" }
+# hovered        = { fg = "#FFFFFF", bg = "#008282" }
+# preview_hovered        = { fg = "#FFFFFF", bg = "#008282" }
 
 marker_marked = { fg = "#8affff", bg = "#8affff" }
 marker_selected = { fg = "#00afd7", bg = "#00afd7" }
@@ -22,6 +22,12 @@ find_keyword  = { fg = "#FFC600", bold = true}
 
 border_symbol = " "
 
+[indicator]
+current = { fg = "#FFFFFF", bg = "#008282" }
+parent = { fg = "#FFFFFF", bg = "#008282" }
+preview = { fg = "#FFFFFF", bg = "#008282" }
+padding = { open = "█", close = "█" }
+
 [tabs]
 active   = { fg = "#015959", bg = "#8affff" }
 inactive = { fg = "#8affff", bg = "#015959"}
@@ -31,7 +37,12 @@ sep_outer = { open = "", close = "" }
 [filetype]
 rules = [
   # This matches all directories (folders) — the “*/” pattern is how Yazi distinguishes directories
-  { name = "*/", fg = "#74c4c4", bg = "reset", bold = true },
+  { mime = "*/", fg = "#74c4c4", bg = "reset", bold = false },
+]
+
+[icon]
+prepend_conds = [
+	{ if = "dir", text = "", fg = "#00BCD4" },
 ]
 
 [input]
@@ -56,9 +67,9 @@ normal_main = { fg = "#003636", bg = "#2dc5fc", bold = true }
 select_main = { fg = "#003636", bg = "#d38cff", bold = true }
 unset_main = { fg = "#003636", bg = "#f07178", bold = true }
 
-normal_alt = { fg = "#8affff", bg = "#008282", bold = true }
-select_alt = { fg = "#8affff", bg = "#008282", bold = true }
-unset_alt= { fg = "#8affff", bg = "#008282", bold = true }
+normal_alt = { fg = "#8affff", bg = "#004344", bold = true }
+select_alt = { fg = "#8affff", bg = "#004344", bold = true }
+unset_alt= { fg = "#8affff", bg = "#004344", bold = true }
 
 [which]
 
