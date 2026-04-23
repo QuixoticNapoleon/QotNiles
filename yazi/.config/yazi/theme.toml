@@ -23,9 +23,9 @@ find_keyword  = { fg = "#FFC600", bold = true}
 border_symbol = " "
 
 [indicator]
-current = { fg = "#FFFFFF", bg = "#008282" }
-parent = { fg = "#FFFFFF", bg = "#008282" }
-preview = { fg = "#FFFFFF", bg = "#008282" }
+current = {bg = "#395E5E" }
+parent = { bg = "#395E5E" }
+preview = { bg = "#395E5E" }
 padding = { open = "█", close = "█" }
 
 [tabs]
@@ -42,7 +42,7 @@ rules = [
 
 [icon]
 prepend_conds = [
-	{ if = "dir", text = "", fg = "#00BCD4" },
+	{ if = "dir", text = "", fg = "#008282" },
 ]
 
 [input]
