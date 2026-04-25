@@ -125,17 +125,6 @@ PanelWindow {
 				font.pixelSize: 14
 			}
 
-			MouseArea {
-				anchors.fill: parent
-				onClicked: {
-					dropdownToggleProc.running = true
-				}
-			}
-
-			Process {
-				id: dropdownToggleProc
-				command: ["sh", "-c", "if hyprctl clients -j | jq -e '.[] | select(.class==\"quickshell-dropdown\")' > /dev/null 2>&1; then pkill -f 'kitty --class quickshell-dropdown'; else kitty --class quickshell-dropdown --override font_size=8 -e sh -c 'fastfetch; echo; printf \"\\e[1;33mI USE ARCH BTW!!!!\\e[0m\\n\"; echo; exec $SHELL' & fi"]
-			}
 		}
 
 		// Powerline separator: bg2 -> bg1
