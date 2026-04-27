@@ -126,6 +126,7 @@ age
 binutils
 xxd
 exiftool
+keyd
 
 # Misc
 fortune-mod
