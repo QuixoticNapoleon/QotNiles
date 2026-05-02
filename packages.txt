@@ -240,3 +240,4 @@ timidity++
 mpd
 mpc
 rmpc
+sox
