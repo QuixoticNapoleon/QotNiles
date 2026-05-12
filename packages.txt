@@ -57,6 +57,7 @@ nginx
 nasm
 gdb
 lldb
+maxima
 valgrind
 
 # Apps
@@ -127,6 +128,7 @@ binutils
 xxd
 exiftool
 keyd
+libqalculate
 
 # Misc
 fortune-mod
