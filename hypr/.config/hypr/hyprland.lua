@@ -220,8 +220,20 @@ hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("~/Scripts/screenshot snip"))
 -- Window Management
 hl.bind("SUPER + SHIFT + C", hl.dsp.window.close())
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
-hl.bind("SUPER + F",         hl.dsp.window.fullscreen({ mode = 0 }))
-hl.bind("SUPER + M",         hl.dsp.window.fullscreen({ mode = 1 }))
+hl.bind("SUPER + F",         hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+local maximized_cols = {}
+hl.bind("SUPER + M", function()
+    local win = hl.get_active_window()
+    if not win then return end
+    local addr = tostring(win.address)
+    if maximized_cols[addr] then
+        hl.dispatch(hl.dsp.layout("colresize 0.5"))
+        maximized_cols[addr] = nil
+    else
+        hl.dispatch(hl.dsp.layout("colresize 1"))
+        maximized_cols[addr] = true
+    end
+end)
 
 -- Move Focus (Vim-style)
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
