@@ -247,12 +247,6 @@ hl.bind("SUPER + SHIFT + L", hl.dsp.window.swap({ direction = "right" }))
 hl.bind("SUPER + SHIFT + K", hl.dsp.window.swap({ direction = "up" }))
 hl.bind("SUPER + SHIFT + J", hl.dsp.window.swap({ direction = "down" }))
 
--- Preselection / Split Direction (Ctrl+Super+hjkl)
-hl.bind("SUPER + CTRL + H", hl.dsp.layout("preselect l"))
-hl.bind("SUPER + CTRL + L", hl.dsp.layout("preselect r"))
-hl.bind("SUPER + CTRL + K", hl.dsp.layout("preselect u"))
-hl.bind("SUPER + CTRL + J", hl.dsp.layout("preselect d"))
-
 -- Swap with last window
 hl.bind("SUPER + CTRL + M", hl.dsp.window.swap({ prev = true }))
 
