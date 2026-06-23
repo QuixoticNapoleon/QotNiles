@@ -129,6 +129,7 @@ xxd
 exiftool
 keyd
 libqalculate
+gnuplot
 
 # Misc
 fortune-mod
