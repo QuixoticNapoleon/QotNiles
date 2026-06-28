@@ -69,12 +69,6 @@ hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 -- ║  ⌨  DEVICE                            ║
 -- ╚════════════════════════════════════════╝
 
-hl.device({
-    name    = "at-translated-set-2-keyboard",
-    enabled = false,
-})
-
-
 -- ╔════════════════════════════════════════╗
 -- ║  🎨  LOOK AND FEEL                     ║
 -- ╚════════════════════════════════════════╝
