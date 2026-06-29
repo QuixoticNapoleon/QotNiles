@@ -1,0 +1,28 @@
+[Groups/0]
+# Group Name
+Name=Default
+# Layout
+Default Layout="us dvp"
+# Default Input Method
+DefaultIM=keyboard-us-dvp
+
+[Groups/0/Items/0]
+# Name
+Name=keyboard-us-dvp
+# Layout
+Layout=
+
+[Groups/0/Items/1]
+# Name
+Name=keyboard-us
+# Layout
+Layout=
+
+[Groups/0/Items/2]
+# Name
+Name=wbx
+# Layout
+Layout=us
+
+[GroupOrder]
+0=Default

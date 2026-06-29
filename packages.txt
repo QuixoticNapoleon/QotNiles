@@ -148,6 +148,13 @@ ly
 wl-clipboard
 cliphist
 
+# Keyboard
+fcitx5
+fcitx5-chinese-addons
+fcitx5-gtk
+fcitx5-qt
+fcitx5-configtool
+
 # Backup Desktop
 # bspwm
 # sxhkd 

@@ -1,0 +1,41 @@
+[Hotkey]
+# Enumerate (cycle) through all input methods in the current group when the
+# trigger key is pressed repeatedly.
+EnumerateWithTriggerKeys=True
+# Skip the first input method while enumerating (keep it off so the cycle hits
+# every method: dvp -> us -> wubi).
+EnumerateSkipFirst=False
+
+[Hotkey/TriggerKeys]
+0=Control+space
+
+[Hotkey/AltTriggerKeys]
+0=Shift_L
+
+# Super+Space cycles forward through every input method in the group:
+#   keyboard-us-dvp (Dvorak) -> keyboard-us (QWERTY) -> wbx (Wubi 86) -> ...
+[Hotkey/EnumerateForwardKeys]
+0=Super+space
+
+[Hotkey/EnumerateBackwardKeys]
+0=Super+Shift+space
+
+# Single group only — free Super+Space from group switching to avoid a clash
+# with EnumerateForwardKeys above.
+[Hotkey/EnumerateGroupForwardKeys]
+
+[Hotkey/EnumerateGroupBackwardKeys]
+
+[Hotkey/PrevPage]
+0=Up
+
+[Hotkey/NextPage]
+0=Down
+
+[Behavior]
+ActiveByDefault=False
+ShowInputMethodInformation=True
+ShowInputMethodInformationWhenFocusIn=False
+CompactInputMethodInformation=True
+ShowFirstInputMethodInformation=True
+DefaultPageSize=5
