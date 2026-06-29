@@ -41,6 +41,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("quickshell")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("dunst")
+    hl.exec_cmd("fcitx5 -d --replace")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
     hl.exec_cmd("wl-paste --primary --type text --watch cliphist -db-path ~/.cache/cliphist/primary.db store")
@@ -63,6 +64,13 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
+
+-- Input method (fcitx5) — so apps route keystrokes through fcitx5
+hl.env("GTK_IM_MODULE", "fcitx")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("XMODIFIERS", "@im=fcitx")
+hl.env("SDL_IM_MODULE", "fcitx")
+hl.env("GLFW_IM_MODULE", "ibus")  -- glfw apps use the "ibus" name even with fcitx
 
 
 -- ╔════════════════════════════════════════╗
