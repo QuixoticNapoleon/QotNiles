@@ -63,7 +63,7 @@ valgrind
 # Apps
 firefox
 neovim
-emacs
+emacs-wayland
 zathura
 discord
 steam

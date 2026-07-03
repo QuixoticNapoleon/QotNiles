@@ -329,7 +329,7 @@ hl.window_rule({
 
 -- Emacs -> workspace 3
 hl.window_rule({
-    match     = { class = "^(Emacs)$" },
+    match     = { class = "^([Ee]macs)$" },
     workspace = 3,
 })
 
