@@ -6,16 +6,18 @@ EnumerateWithTriggerKeys=True
 # every method: dvp -> us -> wubi).
 EnumerateSkipFirst=False
 
+# Super+Space is the trigger key. With EnumerateWithTriggerKeys=True above it
+# activates the IM and then cycles forward through every method in the group:
+#   keyboard-us-dvp (Dvorak) -> keyboard-us (QWERTY) -> wbx (Wubi 86) -> bepo ...
 [Hotkey/TriggerKeys]
-0=Control+space
+0=Super+space
 
 [Hotkey/AltTriggerKeys]
 0=Shift_L
 
-# Super+Space cycles forward through every input method in the group:
-#   keyboard-us-dvp (Dvorak) -> keyboard-us (QWERTY) -> wbx (Wubi 86) -> ...
+# Left empty: the trigger key (Super+Space) already enumerates forward, so a
+# separate forward-enumerate bind would double-fire.
 [Hotkey/EnumerateForwardKeys]
-0=Super+space
 
 [Hotkey/EnumerateBackwardKeys]
 0=Super+Shift+space
